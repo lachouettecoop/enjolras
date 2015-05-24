@@ -1,0 +1,4 @@
+services:
+#    glukose_user.example:
+#        class: Glukose\UserBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
