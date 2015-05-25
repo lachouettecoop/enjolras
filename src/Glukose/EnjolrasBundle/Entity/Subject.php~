@@ -128,27 +128,4 @@ class Subject
     {
         return $this->subtitle;
     }
-
-    /**
-     * Set termine
-     *
-     * @param boolean $termine
-     * @return Subject
-     */
-    public function setTermine($termine)
-    {
-        $this->termine = $termine;
-
-        return $this;
-    }
-
-    /**
-     * Get termine
-     *
-     * @return boolean 
-     */
-    public function getTermine()
-    {
-        return $this->termine;
-    }
 }

@@ -1,0 +1,90 @@
+{% extends "GlukoseEnjolrasBundle::layout.html.twig" %}
+
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="breadcrumb-line clearfix">
+            <ul class="breadcrumb">
+                <li><a href="" accesskey="h" data-original-title="" title=""><span class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="" accesskey="h" data-original-title="" title="">Accueil</a></li>
+                <li><a href="" accesskey="h" data-original-title="" title="">Chouette Coop</a></li>
+                <li><a href="" accesskey="h" data-original-title="" title="">Liste des sujets</a></li>
+                <li><a href="" accesskey="h" data-original-title="" title="">{{subject.title}}</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="row bottom-buffer">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card noMargin">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>{{subject.title}}</h1>
+                        </div>
+                        <div class="col-md-12">
+                            <p>{{subject.description | raw}}</p>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="headMainTopic noMargin pending-color">
+                    Décision en cours
+                </div>
+                <div class="card noMargin">
+                    <div class="row">
+                        <div class="col-md-12 center">
+                            <h3>Résultats</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row bottom-buffer">
+        <div class="headMainTopic noMargin">
+            Propositions
+        </div>
+        <div class="card noMargin">
+            <div id="content">
+                <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active"><a href="#red" data-toggle="tab">Choix 1</a></li>
+                    <li><a href="#orange" data-toggle="tab">Choix 2</a></li>
+                    <li><a href="#yellow" data-toggle="tab">Choix 3</a></li>
+                    <li><a href="#green" data-toggle="tab">Green</a></li>
+                    <li><a href="#blue" data-toggle="tab">Blue</a></li>
+                </ul>
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="red">
+                        <h1>Red</h1>
+                        <p>red red red red red red</p>
+                    </div>
+                    <div class="tab-pane" id="orange">
+                        <h1>Orange</h1>
+                        <p>orange orange orange orange orange</p>
+                    </div>
+                    <div class="tab-pane" id="yellow">
+                        <h1>Yellow</h1>
+                        <p>yellow yellow yellow yellow yellow</p>
+                    </div>
+                    <div class="tab-pane" id="green">
+                        <h1>Green</h1>
+                        <p>green green green green green</p>
+                    </div>
+                    <div class="tab-pane" id="blue">
+                        <h1>Blue</h1>
+                        <p>blue blue blue blue blue</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

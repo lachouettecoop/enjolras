@@ -1,3 +1,12 @@
 glukose_enjolras_homepage:
     path:     /
     defaults: { _controller: GlukoseEnjolrasBundle:Main:index }
+
+glukose_enjolras_subjects:
+    path:     /sujets
+    defaults: { _controller: GlukoseEnjolrasBundle:Main:showAllSubjects }
+    
+glukose_enjolras_oneSubject:
+    path:     /sujet/{idSubject}
+    defaults: { _controller: GlukoseEnjolrasBundle:Main:showSubject, idSubject:'1' }
+

@@ -6,6 +6,11 @@ imports:
 parameters:
     iconAutre:     <i class="fa fa-pencil"></i>
     web_path:      %kernel.root_dir%/../web/
+    knp_disqus.api_key:    5B0dFpdDTuImNVvAGcdU9Y1aDw8o4n49Zm6kjwLmZtCuWMKdU6QRpx0qLf7ceuGq
+    knp_disqus.secret_key: l7n3XPwLNUhSphtMeAyRSXBhEnpyCzulYDK4NfIc3YaO163vh15xP3GwSTvHIVuG
+    # Insert your disqus shortname
+    # it's the unique identifier for your website as registered on Disqus
+    knp_disqus.lorem.shortname: "enjorlas"
     
 framework:
     #esi:             ~

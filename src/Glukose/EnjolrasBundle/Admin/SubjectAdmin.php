@@ -16,10 +16,12 @@ class SubjectAdmin extends Admin
     {
         $formMapper        
             ->add('title')
+            ->add('subtitle')            
             ->add('description', 'textarea', array(
                 'attr' => array('class' => 'ckeditor'), 
                 'required' => false)
                  )
+            ->add('termine', null, array('required' => false))
             ;
     }
 

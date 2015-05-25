@@ -25,7 +25,7 @@
 
    <body>
 
-      <div class="navbar navbar-inverse navbar-fixed-top visible-sm-block visible-xs-block">
+      <div class="navbar navbar-inverse navbar-static-top flat-nav">
          <div class="container">
             <div class="navbar-header">
                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -37,8 +37,14 @@
                <a class="navbar-brand" href="{{path('glukose_enjolras_homepage')}}" class="whiteLink">Enjorlas</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
-               <ul class="nav navbar-nav">
-                  <li class="active"><a href="{{path('glukose_enjolras_homepage')}}">Accueil</a></li>
+               <ul class="nav navbar-nav navbar-nav-fancy">
+                  <li class=""><a href="{{path('glukose_enjolras_subjects')}}">Sujets</a></li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right navbar-nav-fancy">
+
+                  <li><a href="">Creer un compte</a></li>
+
+                  <li><a href="">Connexion</a></li>
                </ul>
             </div><!--/.nav-collapse -->
          </div>
@@ -56,7 +62,7 @@
 
       {% endblock %}
 
-     
+
 
       {% block javascripts %}
       <script src="{{ asset('bundles/glukoseenjolras/js/jquery.min.js') }}"></script>

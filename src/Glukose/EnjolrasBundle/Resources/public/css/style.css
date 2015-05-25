@@ -44,6 +44,10 @@ body {
    font-family: krinkes;
    src:url(../fonts/KrinkesDecorPERSONAL.ttf);   
 }
+@font-face{
+   font-family: glyphicon;
+   src:url(../fonts/glyphicons-halflings-regular.ttf);   
+}
 .center{ text-align: center; }
 .right{ text-align: right; }
 .justify{ text-align: justify; }
@@ -52,6 +56,7 @@ body {
    margin: 10px 0;
    border: 0;
    padding: 15px 20px;
+   min-height: 50px;
    color: #3c4048;
    background: #fff;
    box-shadow: 0 1px 2px rgba(0,0,0,.1);
@@ -76,6 +81,8 @@ body {
 }
 
 h1 {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 22px; }
+h2 {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 18px; color: #c0392b; }
+h3 {  font-family: opensans, serif; line-height: 1.25; margin: 0 0 0px; font-size: 16px; color: #212121; }
 h1.slogan {  font-family: krinkes, serif; line-height: 1.25; margin: 0 0 0px; font-size: 30px;}
 
 /* Wrapper for page content to push down footer */
@@ -136,3 +143,142 @@ a.whiteLink:hover{
 a.whiteLink:visited {
    color: white;
 }
+.navbar-brand {
+  font-family: "sortsmillgoudy","Arial","Helvetica",sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+}
+.navbar {
+  min-height: 80px;
+  padding: 14px 0 0;
+}
+.navbar-nav-fancy > li:before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    content: "";
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    -moz-transform: translatex(0%) translatey(-50%);
+    -ms-transform: translatex(0%) translatey(-50%);
+    -o-transform: translatex(0%) translatey(-50%);
+    -webkit-transform: translatex(0%) translatey(-50%);
+    transform: translatex(0%) translatey(-50%);
+    color: #2c3e50;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: none repeat scroll 0 0 #262626;
+}
+
+.navbar-nav-fancy > li:hover:before {
+    height: 80%;
+}
+
+.navbar-nav.navbar-right:last-child {
+    margin-top: -2px;
+    margin-right: 0;
+}
+.navbar-inverse {
+    background-color: #333333;
+    border-color: #080808;
+}
+
+.breadcrumb-line {
+  margin: 0 0 35px;
+  border-radius: 4px;
+  background-color: #e1e5eb;
+}
+.breadcrumb {
+    float: left;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.breadcrumb-buttons {
+    font-size: 0;
+    position: relative;
+    display: block;
+    float: right;
+    margin: 0;
+    padding-left: 15px;
+    list-style: none outside none;
+    border-left: 1px solid #eee;
+    border-radius: 0 4px 4px 0;
+    background: none repeat scroll 0 0 #c8d2d8;
+}
+
+.breadcrumb-buttons > li {
+    font-size: 12px;
+    position: relative;
+    display: block;
+}
+
+.breadcrumb .icon,
+.breadcrumb-buttons .icon {
+    font-size: 18px;
+    vertical-align: text-bottom;
+}
+
+.breadcrumb-buttons li a {
+    line-height: 41px;
+    position: relative;
+    margin-right: 15px;
+    transition: none 0s ease 0s;
+    text-decoration: none;
+}
+
+.breadcrumb li a {
+    line-height: 41px;
+    position: relative;
+    display: inline-block;
+    /* height: 40px; */
+    -moz-transition: none 0s ease 0s;
+    -o-transition: none 0s ease 0s;
+    -webkit-transition: none 0s ease 0s;
+    transition: none 0s ease 0s;
+    text-align: center;
+    text-decoration: none
+}
+
+.breadcrumb li:first-child a {
+    padding: 0 15px 0;
+    -moz-border-radius: 4px 0 0 4px;
+    -webkit-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+    background: #c8d2d8
+}
+
+.breadcrumb .icon {
+    font-size: 18px;
+}
+
+.breadcrumb > li + li:before {
+    font-family: glyphicon;
+    content: "\E258";
+}
+.breadcrumb li:last-child a {
+    font-weight: 700;
+    color: #888;
+}
+.headMainTopic {
+   margin: 10px 0;
+   border: 0;
+   padding: 10px 20px;
+   font-family: opensansbold;
+   color: #fff;
+   background: #34495e;
+   box-shadow: 0 1px 2px rgba(0,0,0,.1);
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
+.noMargin{
+   margin: 0px 0px;
+}
+.pending-color{ background-color: #16a085;}
