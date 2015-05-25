@@ -48,6 +48,11 @@ class Solution
      * @ORM\Column(name="cons", type="text")
      */
     private $cons;
+ 
+    /**
+     * @ORM\ManyToOne(targetEntity="Glukose\EnjolrasBundle\Entity\Subject")
+     */
+    private $subject;
 
 
     /**
@@ -150,5 +155,28 @@ class Solution
     public function getCons()
     {
         return $this->cons;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Subject $subject
+     * @return Solution
+     */
+    public function setSubject(\Glukose\EnjolrasBundle\Entity\Subject $subject = null)
+    {
+        $this->subject = $subject;
+        $subject->addSolution($this);
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return \Glukose\EnjolrasBundle\Entity\Subject 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

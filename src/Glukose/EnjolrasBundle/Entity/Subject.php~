@@ -48,6 +48,11 @@ class Subject
      * @ORM\Column(name="termine", type="boolean")
      */
     private $termine;
+ 
+    /**
+     * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Solution", mappedBy="subject")
+     */
+    private $solutions;
 
 
     /**
@@ -127,5 +132,59 @@ class Subject
     public function getSubtitle()
     {
         return $this->subtitle;
+    }
+
+    /**
+     * Set termine
+     *
+     * @param boolean $termine
+     * @return Subject
+     */
+    public function setTermine($termine)
+    {
+        $this->termine = $termine;
+
+        return $this;
+    }
+
+    /**
+     * Get termine
+     *
+     * @return boolean 
+     */
+    public function getTermine()
+    {
+        return $this->termine;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->solutions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add solutions
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Solution $solutions
+     * @return Subject
+     */
+    public function addSolution(\Glukose\EnjolrasBundle\Entity\Solution $solutions)
+    {
+        $this->solutions[] = $solutions;
+
+        return $this;
+    }
+
+    /**
+     * Remove solutions
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Solution $solutions
+     */
+    public function removeSolution(\Glukose\EnjolrasBundle\Entity\Solution $solutions)
+    {
+        $this->solutions->removeElement($solutions);
     }
 }

@@ -48,6 +48,11 @@ class Subject
      * @ORM\Column(name="termine", type="boolean")
      */
     private $termine;
+ 
+    /**
+     * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Solution", mappedBy="subject", cascade={"persist"})
+     */
+    private $solutions;
 
 
     /**
@@ -150,5 +155,46 @@ class Subject
     public function getTermine()
     {
         return $this->termine;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->solutions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add solutions
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Solution $solutions
+     * @return Subject
+     */
+    public function addSolution(\Glukose\EnjolrasBundle\Entity\Solution $solutions)
+    {
+        $this->solutions[] = $solutions;
+
+        return $this;
+    }
+
+    /**
+     * Remove solutions
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Solution $solutions
+     */
+    public function removeSolution(\Glukose\EnjolrasBundle\Entity\Solution $solutions)
+    {
+        $this->solutions->removeElement($solutions);
+    }
+
+    /**
+     * Get solutions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSolutions()
+    {
+        return $this->solutions;
     }
 }
