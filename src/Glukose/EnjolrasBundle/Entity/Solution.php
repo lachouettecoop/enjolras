@@ -50,7 +50,7 @@ class Solution
     private $cons;
  
     /**
-     * @ORM\ManyToOne(targetEntity="Glukose\EnjolrasBundle\Entity\Subject")
+     * @ORM\ManyToOne(targetEntity="Glukose\EnjolrasBundle\Entity\Subject", inversedBy="solutions")
      */
     private $subject;
 
