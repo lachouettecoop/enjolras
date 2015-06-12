@@ -26,7 +26,10 @@
                             <h1>Sujet : {{subject.title}}</h1>
                         </div>
                         <div class="col-md-12 top-buffer">
-                            <p>{{subject.description | raw}}</p>                
+                            <p>{{subject.description | raw}}</p> 
+                            <hr>
+                            {{dump(result)}}
+                            {{dump(looser)}}
                         </div>
                     </div>
                 </div>
@@ -43,7 +46,7 @@
                             <canvas id="chartResults" class="left-margin"></canvas>
                             <br />
                             <br />
-                            <a href="" class="btn btn-primary" >Voter</a>
+                            <a href="{{path('glukose_enjolras_voteCondorcet', {'idSubject':subject.id})}}" class="btn btn-primary" >Voter</a>
                         </div>
                     </div>
                 </div>

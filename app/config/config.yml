@@ -172,7 +172,7 @@ sonata_admin :
         search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
 
 stof_doctrine_extensions:
-    default_locale: fr_FR
+    default_locale: en_US
     orm:
         default:            
             timestampable: true

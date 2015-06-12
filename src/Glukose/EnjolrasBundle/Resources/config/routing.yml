@@ -10,3 +10,7 @@ glukose_enjolras_oneSubject:
     path:     /sujet/{idSubject}
     defaults: { _controller: GlukoseEnjolrasBundle:Main:showSubject, idSubject:'1' }
 
+glukose_enjolras_voteCondorcet:
+    path:     /sujet/vote/condorcet/{idSubject}
+    defaults: { _controller: GlukoseEnjolrasBundle:Main:voteCondorcet, idSubject:'1' }
+

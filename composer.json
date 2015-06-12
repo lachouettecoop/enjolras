@@ -28,7 +28,8 @@
         "knplabs/knp-snappy-bundle": "1.2.*@dev",
         "knplabs/knp-paginator-bundle": "2.4.1",
         "liip/imagine-bundle": "1.2.3",
-        "knplabs/knp-disqus-bundle": "1.1.*@dev"
+        "knplabs/knp-disqus-bundle": "1.1.*@dev",
+        "julien-boudry/condorcet": "0.91.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
