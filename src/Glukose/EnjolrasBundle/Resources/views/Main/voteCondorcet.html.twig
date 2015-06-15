@@ -22,8 +22,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card noMargin">
-                    <div class="row">
-                        <div class="col-md-12">
+                    <div class="row valign">
+                        <div class="col-md-2">
+                            <img src="{{asset('bundles/glukoseenjolras/images/logoVote.png')}}" width="150" height="" alt="Image d'un bulletin glissé dans une urne" />
+                        </div>
+                        <div class="col-md-10">
                             <h1>Vote : {{subject.title}}</h1>
                             <br />
                             <p>Le vote utilise une méthode de classement, dite de condorcet, et permet de classer ses choix par ordre de préférence. <br /> Il vous suffit de "glisser/déposer" un des choix a gauche et de le placer dans la liste "Mon classement" à droite.</p>
@@ -163,7 +166,7 @@
             $("#listVotes li").each( function(key, value) {
                 listResult += $(this).attr('id') + '>';                
             });
-            alert("toto" + listResult);
+            //alert("toto" + listResult);
             $("#myvote").attr('value', listResult);  
             
             //return false; //is superfluous, but I put it here as a fallback

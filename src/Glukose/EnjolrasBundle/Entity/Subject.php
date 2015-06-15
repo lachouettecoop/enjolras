@@ -53,6 +53,11 @@ class Subject
      * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Solution", mappedBy="subject", cascade={"persist"})
      */
     private $solutions;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Vote", mappedBy="subject", cascade={"persist"})
+     */
+    private $votes;
 
 
     /**
@@ -196,5 +201,38 @@ class Subject
     public function getSolutions()
     {
         return $this->solutions;
+    }
+
+    /**
+     * Add votes
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Vote $votes
+     * @return Subject
+     */
+    public function addVote(\Glukose\EnjolrasBundle\Entity\Vote $votes)
+    {
+        $this->votes[] = $votes;
+
+        return $this;
+    }
+
+    /**
+     * Remove votes
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Vote $votes
+     */
+    public function removeVote(\Glukose\EnjolrasBundle\Entity\Vote $votes)
+    {
+        $this->votes->removeElement($votes);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

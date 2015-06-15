@@ -17,6 +17,15 @@
         </div>
     </div>
 
+    <div class="col-md-12">
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>            
+            {{ flashMessage }}            
+        </div>
+        {% endfor %}
+    </div>
+
     <div class="row bottom-buffer">
         <div class="row">
             <div class="col-md-9">
@@ -93,31 +102,31 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row top-buffer">
                             <div class="col-md-12">
                                 {{ knp_disqus_render('enjorlas', 
                                 {
-                                    'identifier': '/solution/'~ solution.id ~'/', 'limit': 10, 
-                                    'sso': {
-                                        'user': {
-                                            'id' : '1',
-                                            'username' : 'kulemon',
-                                            'email': 'homzon@gmail.com',
-                                        },
-                                        'service': {
-                                            'name': 'MyAuthServiceProvider',
-                                            'icon': 'http://example.com/favicon.png',
-                                            'button': 'http://example.com/images/samplenews.gif',
-                                            'url': 'http://example.com/login/',
-                                            'logout': 'http://example.com/logout/',
-                                            'width': '400',
-                                            'height': '400'
-                                        }
-                                    }
+                                'identifier': '/solution/'~ solution.id ~'/', 'limit': 10, 
+                                'sso': {
+                                'user': {
+                                'id' : '1',
+                                'username' : 'kulemon',
+                                'email': 'homzon@gmail.com',
+                                },
+                                'service': {
+                                'name': 'MyAuthServiceProvider',
+                                'icon': 'http://example.com/favicon.png',
+                                'button': 'http://example.com/images/samplenews.gif',
+                                'url': 'http://example.com/login/',
+                                'logout': 'http://example.com/logout/',
+                                'width': '400',
+                                'height': '400'
+                                }
+                                }
                                 },
                                 'KnpDisqusBundle::list.html.twig') 
-                            }}
+                                }}
                             </div>
                         </div>
 
@@ -143,31 +152,31 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row top-buffer">
                             <div class="col-md-12">
                                 {{ knp_disqus_render('enjorlas', 
                                 {
-                                    'identifier': '/solution/'~ solution.id ~'/', 'limit': 10, 
-                                    'sso': {
-                                        'user': {
-                                            'id' : '1',
-                                            'username' : 'kulemon',
-                                            'email': 'homzon@gmail.com',
-                                        },
-                                        'service': {
-                                            'name': 'MyAuthServiceProvider',
-                                            'icon': 'http://example.com/favicon.png',
-                                            'button': 'http://example.com/images/samplenews.gif',
-                                            'url': 'http://example.com/login/',
-                                            'logout': 'http://example.com/logout/',
-                                            'width': '400',
-                                            'height': '400'
-                                        }
-                                    }
+                                'identifier': '/solution/'~ solution.id ~'/', 'limit': 10, 
+                                'sso': {
+                                'user': {
+                                'id' : '1',
+                                'username' : 'kulemon',
+                                'email': 'homzon@gmail.com',
+                                },
+                                'service': {
+                                'name': 'MyAuthServiceProvider',
+                                'icon': 'http://example.com/favicon.png',
+                                'button': 'http://example.com/images/samplenews.gif',
+                                'url': 'http://example.com/login/',
+                                'logout': 'http://example.com/logout/',
+                                'width': '400',
+                                'height': '400'
+                                }
+                                }
                                 },
                                 'KnpDisqusBundle::list.html.twig') 
-                            }}
+                                }}
                             </div>
                         </div>
                     </div>
@@ -183,8 +192,8 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('bundles/glukoseenjolras/js/chart.min.js') }}"></script>
+{{ parent() }}
+<script src="{{ asset('bundles/glukoseenjolras/js/chart.min.js') }}"></script>
 {% endblock %}
 
 {% block jquery %}
@@ -193,46 +202,46 @@
         var ctx = $("#chartResults").get(0).getContext("2d");
         //var myNewChart = new Chart(ctx);
         Chart.defaults.global.responsive = true;
-        
-       {% autoescape false  %}
-            Chart.defaults.global.tooltipTemplate = '<%if (label){ %><%=label%> = <%}%><%= value %>';
-       {% endautoescape %}
-        
-        
-        var data = [
-            {% for solution in subject.solutions %}
-                {% if loop.first %}
-                    {
-                        value: 100,
-                        highlight:"#2c3e50",
-                        color: "#34495e",
-                        label: "{{solution.title}}"
-                    },
-            
-                {% else %}
-                    {
-                        value: 300,
-                        highlight:"#c0392b",
-                        color: "#e74c3c",
-                        label: "{{solution.title}}"
-                    },
-                {% endif %}
-            {% endfor%}
-            {
-                value: 150,
-                highlight:"#27ae60",
-                color: "#2ecc71",
-                label: "Choix 3"
-            },
-        
-        ];
-        var myPieChart = new Chart(ctx).Pie(data, {//Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate : true,
-            
 
-});
-        
-    });
-    
+        {% autoescape false  %}
+        Chart.defaults.global.tooltipTemplate = '<%if (label){ %><%=label%> = <%}%><%= value %>';
+         {% endautoescape %}
+
+
+         var data = [
+             {% for solution in subject.solutions %}
+             {% if loop.first %}
+             {
+             value: 100,
+             highlight:"#2c3e50",
+             color: "#34495e",
+             label: "{{solution.title}}"
+             },
+
+             {% else %}
+             {
+             value: 300,
+             highlight:"#c0392b",
+             color: "#e74c3c",
+             label: "{{solution.title}}"
+             },
+             {% endif %}
+             {% endfor%}
+             {
+             value: 150,
+             highlight:"#27ae60",
+             color: "#2ecc71",
+             label: "Choix 3"
+             },
+
+         ];
+          var myPieChart = new Chart(ctx).Pie(data, {//Boolean - Whether we animate the rotation of the Doughnut
+              animateRotate : true,
+
+
+          });
+
+         });
+
 </script>  
 {% endblock %}

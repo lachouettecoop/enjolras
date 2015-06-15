@@ -1,4 +1,10 @@
+parameters:
+    glukose_user.component.authentication.handler.login_success_handler.class: Glukose\UserBundle\Component\Authentication\Handler\LoginSuccessHandler
+    glukose_user.component.authentication.handler.logout_success_handler.class: CCDNUser\SecurityBundle\Component\Authentication\Handler\LogoutSuccessHandler
+    
 services:
-#    glukose_user.example:
-#        class: Glukose\UserBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    glukose_user.component.authentication.handler.login_success_handler:
+        class:  %glukose_user.component.authentication.handler.login_success_handler.class%
+        arguments:  [@router, @security.context, @session]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }

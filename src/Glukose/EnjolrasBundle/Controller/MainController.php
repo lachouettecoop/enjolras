@@ -7,6 +7,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Condorcet\Condorcet;
 use Condorcet\Vote;
+use Glukose\EnjolrasBundle\Entity\Vote as EnjolrasVote;
 
 class MainController extends Controller
 {
@@ -101,8 +102,21 @@ class MainController extends Controller
      * @param  integer  $idSubject Id of the selected subject
      * @return Response 
      */
-    public function voteCondorcetAction($idSubject)
+    public function voteCondorcetAction($idSubject, Request $request)
     {
+
+        //si l'utilisateur n'est pas authentifié on le renvoi à la page de connexion
+        if($this->getUser() == null){
+            
+            //Route and params --> in session
+            $parameters = array('idSubject' => $idSubject);
+            $route = "glukose_enjolras_voteCondorcet";            
+            $request->getSession()->set('redirectResponseCustom', array('route' => $route, 'parameters' => $parameters));
+            
+            //redirection to connect form
+            return $this->redirect($this->generateUrl('fos_user_security_login'));    
+        }
+
         //find selected subject
         $repository = $this
             ->getDoctrine()
@@ -114,6 +128,34 @@ class MainController extends Controller
 
 
         if($subject){
+
+            //If submited vote
+            if ($request->isMethod('POST')) {
+
+                //get vote
+                $voteString = $this->get('request')->request->get('myvote');
+                //substring last char
+                $voteString = rtrim($voteString, ">");
+
+                //New vote
+                $enjolrasVote = new EnjolrasVote();
+                $enjolrasVote->setVote($voteString);
+                $enjolrasVote->setSubject($subject);
+                $enjolrasVote->setUser($this->getUser());
+
+                //persisting
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($enjolrasVote);
+                $em->flush();
+
+                //Flash message
+                $this->get('session')->getFlashBag()->add('notice','Merci de votre vote. Le résultat sera affiché sur cette page lors de la cloture du vote.');
+
+                //redirect to subject
+                return $this->redirect($this->generateUrl("glukose_enjolras_oneSubject", array('idSubject' => $subject->getId())));               
+            }
+
+            //return voting view
             return $this->render('GlukoseEnjolrasBundle:Main:voteCondorcet.html.twig',
                                  array('subject' => $subject)
                                 );

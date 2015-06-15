@@ -50,9 +50,14 @@ class Subject
     private $termine;
  
     /**
-     * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Solution", mappedBy="subject")
+     * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Solution", mappedBy="subject", cascade={"persist"})
      */
     private $solutions;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Vote", mappedBy="subject", cascade={"persist"})
+     */
+    private $votes;
 
 
     /**
@@ -186,5 +191,15 @@ class Subject
     public function removeSolution(\Glukose\EnjolrasBundle\Entity\Solution $solutions)
     {
         $this->solutions->removeElement($solutions);
+    }
+
+    /**
+     * Get solutions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSolutions()
+    {
+        return $this->solutions;
     }
 }
