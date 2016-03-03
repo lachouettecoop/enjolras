@@ -76,7 +76,7 @@ class MainController extends Controller
 
         $vote = $repositoryV->findVoteByUserSubject($idSubject, $user->getId());
 
-        //pour l'affichage du vote
+        //Display a readable vote for the user
         $classement = explode(">", $vote);
         $solutions = array();
         foreach ($classement as $idSolution){
@@ -84,32 +84,11 @@ class MainController extends Controller
         }
 
 
-        $condorcet = new Election();
-        $condorcet->addCandidate('Wagner');
-        $condorcet->addCandidate('Debussy');
-        $condorcet->addCandidate('Varese');
-        $condorcet->addCandidate('Mozart');
-
-        $vote1 = new Vote ('Mozart>Debussy=Wagner>Varese');
-        $vote2 = new Vote ('Debussy>Wagner=Mozart>Varese');
-        $vote3 = new Vote ('Varese>Debussy=Mozart>Wagner');
-        $vote4 = new Vote ('Mozart>Varese=Wagner>Debussy');
-
-        $condorcet->addVote($vote1);
-        $condorcet->addVote($vote2);
-        $condorcet->addVote($vote3);
-        $condorcet->addVote($vote4);
-
-        $result = $condorcet->getWinner();
-        $resultLooser = $condorcet->getLoser();
-
         if($subject){
             return $this->render('GlukoseEnjolrasBundle:Main:showSubject.html.twig',
                                  array('subject' => $subject,
                                        'vote'   => $vote,
-                                       'solutions'   => $solutions,
-                                       'result'  => $result, 
-                                       'looser'  => $resultLooser)
+                                       'solutions'   => $solutions)
                                 );
         }else{
             throw new NotFoundHttpException("Page not found");
@@ -126,7 +105,7 @@ class MainController extends Controller
     public function voteCondorcetAction($idSubject, Request $request)
     {
 
-        //si l'utilisateur n'est pas authentifié on le renvoi à la page de connexion
+        //If not authentified back to connection page
         $user = $this->getUser();
         if($user == null){
 
@@ -194,30 +173,82 @@ class MainController extends Controller
         }
 
     }
-    
+
     public function clotureCondorcetAction($idSubject){
-        
-         return $this->render('GlukoseEnjolrasBundle:Main:showSubject.html.twig',
-                                 array('subject' => $subject,
-                                       'vote'   => $vote,
-                                       'solutions'   => $solutions,
-                                       'result'  => $result, 
-                                       'looser'  => $resultLooser)
-                                );
-        
+
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $repository = $em->getRepository('GlukoseEnjolrasBundle:Subject');
+        $repositoryV = $em->getRepository('GlukoseEnjolrasBundle:Vote');
+        $repositoryS = $em->getRepository('GlukoseEnjolrasBundle:Solution');
+
+        $subject = $repository->find($idSubject);
+
+        $solutions = $subject->getSolutions();
+        $votes = $subject->getVotes();
+
+        //The Election Object
+        $condorcet = new Election();
+
+        foreach($solutions as $candidat){
+            $condorcet->addCandidate($candidat->getId());
+        }
+
+        foreach($votes as $vote){
+            $condorcet->addVote(new Vote ($vote->getVote()));
+        }
+
+        $gagnant = $condorcet->getWinner();
+        $resultLooser = $condorcet->getLoser();
+
+        $solutionWinner = $repositoryS->find($gagnant->getName());
+        $subject->setGagnant($solutionWinner);
+
+        $em->persist($subject);
+        $em->flush();
+
+        return $this->render('GlukoseEnjolrasBundle:Main:index.html.twig');
+
+
     }
-    
-    
+
+
     public function publicationResultatAction($idSubject){
+
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $repository = $em->getRepository('GlukoseEnjolrasBundle:Subject');
+        $repositoryV = $em->getRepository('GlukoseEnjolrasBundle:Vote');
+        $repositoryS = $em->getRepository('GlukoseEnjolrasBundle:Solution');
+
+        $subject = $repository->find($idSubject);
+
+        $solutions = $subject->getSolutions();
+        $votes = $subject->getVotes();
+
+        //The Election Object
+        $condorcet = new Election();
+
+        foreach($solutions as $candidat){
+            $condorcet->addCandidate($candidat->getId());
+        }
+
+        foreach($votes as $vote){
+            $condorcet->addVote(new Vote ($vote->getVote()));
+        }
         
-         return $this->render('GlukoseEnjolrasBundle:Main:showSubject.html.twig',
-                                 array('subject' => $subject,
-                                       'vote'   => $vote,
-                                       'solutions'   => $solutions,
-                                       'result'  => $result, 
-                                       'looser'  => $resultLooser)
-                                );
-        
+        return $this->render('GlukoseEnjolrasBundle:Main:showSubject.html.twig',
+                             array('subject' => $subject,
+                                   'vote'   => $vote,
+                                   'solutions'   => $solutions,
+                                   'result'  => $result, 
+                                   'looser'  => $resultLooser)
+                            );
+
     }
 
 }

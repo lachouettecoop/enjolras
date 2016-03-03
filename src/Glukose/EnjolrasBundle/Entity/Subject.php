@@ -56,6 +56,13 @@ class Subject
      */
     private $termine;
  
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="gagnant", type="string", length=255)
+     */
+    private $gagnant;
+ 
     /**
      * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Solution", mappedBy="subject", cascade={"persist"})
      */
@@ -65,6 +72,8 @@ class Subject
      * @ORM\OneToMany(targetEntity="Glukose\EnjolrasBundle\Entity\Vote", mappedBy="subject", cascade={"persist"})
      */
     private $votes;
+ 
+
 
 
     /**
@@ -264,5 +273,28 @@ class Subject
     public function getDateFin()
     {
         return $this->dateFin;
+    }
+
+    /**
+     * Set gagnant
+     *
+     * @param string $gagnant
+     * @return Subject
+     */
+    public function setGagnant($gagnant)
+    {
+        $this->gagnant = $gagnant;
+
+        return $this;
+    }
+
+    /**
+     * Get gagnant
+     *
+     * @return string 
+     */
+    public function getGagnant()
+    {
+        return $this->gagnant;
     }
 }

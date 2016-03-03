@@ -190,57 +190,7 @@
 
 {% endblock %}
 
-{% block javascripts %}
-{{ parent() }}
-<script src="{{ asset('bundles/glukoseenjolras/js/chart.min.js') }}"></script>
-{% endblock %}
 
 {% block jquery %}
-<script type="text/javascript">
-    $( document ).ready(function() {
-        var ctx = $("#chartResults").get(0).getContext("2d");
-        //var myNewChart = new Chart(ctx);
-        Chart.defaults.global.responsive = true;
 
-        {% autoescape false  %}
-        Chart.defaults.global.tooltipTemplate = '<%if (label){ %><%=label%> = <%}%><%= value %>';
-         {% endautoescape %}
-
-
-         var data = [
-             {% for solution in subject.solutions %}
-             {% if loop.first %}
-             {
-             value: 100,
-             highlight:"#2c3e50",
-             color: "#34495e",
-             label: "{{solution.title}}"
-             },
-
-             {% else %}
-             {
-             value: 300,
-             highlight:"#c0392b",
-             color: "#e74c3c",
-             label: "{{solution.title}}"
-             },
-             {% endif %}
-             {% endfor%}
-             {
-             value: 150,
-             highlight:"#27ae60",
-             color: "#2ecc71",
-             label: "Choix 3"
-             },
-
-         ];
-          var myPieChart = new Chart(ctx).Pie(data, {//Boolean - Whether we animate the rotation of the Doughnut
-              animateRotate : true,
-
-
-          });
-
-         });
-
-</script>  
 {% endblock %}

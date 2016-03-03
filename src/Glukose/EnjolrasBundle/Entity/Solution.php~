@@ -48,7 +48,7 @@ class Solution
      * @ORM\Column(name="cons", type="text", nullable=true)
      */
     private $cons;
- 
+
     /**
      * @ORM\ManyToOne(targetEntity="Glukose\EnjolrasBundle\Entity\Subject", inversedBy="solutions")
      */
@@ -63,6 +63,11 @@ class Solution
     public function getId()
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
     /**
