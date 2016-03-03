@@ -16,7 +16,15 @@ class SubjectAdmin extends Admin
     {
         $formMapper        
             ->add('title')
-            ->add('subtitle')            
+            ->add('subtitle')
+            ->add('dateFin', 'sonata_type_date_picker', array(
+                'required' => false,
+                'dp_language'=>'fr',
+                'format'=>'dd/MM/yyyy',
+                'attr' => array(
+                    'data-date-format' => 'DD/MM/YYYY',
+                )
+            ))
             ->add('description', 'textarea', array(
                 'attr' => array('class' => 'ckeditor'), 
                 'required' => false)

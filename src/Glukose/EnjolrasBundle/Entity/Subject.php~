@@ -31,21 +31,28 @@ class Subject
     /**
      * @var string
      *
-     * @ORM\Column(name="subtitle", type="string", length=255)
+     * @ORM\Column(name="subtitle", type="string", length=255, nullable=true)
      */
     private $subtitle;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFin", type="date", nullable=true)
+     */
+    private $dateFin;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
  
     /**
      * @var boolean
      *
-     * @ORM\Column(name="termine", type="boolean")
+     * @ORM\Column(name="termine", type="boolean", nullable=true)
      */
     private $termine;
  
@@ -201,5 +208,38 @@ class Subject
     public function getSolutions()
     {
         return $this->solutions;
+    }
+
+    /**
+     * Add votes
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Vote $votes
+     * @return Subject
+     */
+    public function addVote(\Glukose\EnjolrasBundle\Entity\Vote $votes)
+    {
+        $this->votes[] = $votes;
+
+        return $this;
+    }
+
+    /**
+     * Remove votes
+     *
+     * @param \Glukose\EnjolrasBundle\Entity\Vote $votes
+     */
+    public function removeVote(\Glukose\EnjolrasBundle\Entity\Vote $votes)
+    {
+        $this->votes->removeElement($votes);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

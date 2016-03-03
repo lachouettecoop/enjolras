@@ -31,21 +31,28 @@ class Subject
     /**
      * @var string
      *
-     * @ORM\Column(name="subtitle", type="string", length=255)
+     * @ORM\Column(name="subtitle", type="string", length=255, nullable=true)
      */
     private $subtitle;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFin", type="date", nullable=true)
+     */
+    private $dateFin;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
  
     /**
      * @var boolean
      *
-     * @ORM\Column(name="termine", type="boolean")
+     * @ORM\Column(name="termine", type="boolean", nullable=true)
      */
     private $termine;
  
@@ -234,5 +241,28 @@ class Subject
     public function getVotes()
     {
         return $this->votes;
+    }
+
+    /**
+     * Set dateFin
+     *
+     * @param \DateTime $dateFin
+     * @return Subject
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFin
+     *
+     * @return \DateTime 
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
     }
 }

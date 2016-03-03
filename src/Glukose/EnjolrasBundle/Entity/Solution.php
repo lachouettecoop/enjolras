@@ -24,31 +24,31 @@ class Solution
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pros", type="text")
+     * @ORM\Column(name="pros", type="text", nullable=true)
      */
     private $pros;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cons", type="text")
+     * @ORM\Column(name="cons", type="text", nullable=true)
      */
     private $cons;
- 
+
     /**
      * @ORM\ManyToOne(targetEntity="Glukose\EnjolrasBundle\Entity\Subject", inversedBy="solutions")
      */
@@ -63,6 +63,11 @@ class Solution
     public function getId()
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
     /**

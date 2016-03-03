@@ -13,4 +13,12 @@ glukose_enjolras_oneSubject:
 glukose_enjolras_voteCondorcet:
     path:     /sujet/vote/condorcet/{idSubject}
     defaults: { _controller: GlukoseEnjolrasBundle:Main:voteCondorcet, idSubject:'1' }
+    
+glukose_enjolras_cloture_vote:
+    path:     /sujet/vote/cloture/condorcet/{idSubject}
+    defaults: { _controller: GlukoseEnjolrasBundle:Main:clotureCondorcet, idSubject:'1' }
+    
+glukose_enjolras_publication_resultats:
+    path:     /sujet/vote/resultats/{idSubject}
+    defaults: { _controller: GlukoseEnjolrasBundle:Main:publicationResultat, idSubject:'1' }
 

@@ -21,6 +21,14 @@
     <div class="row bottom-buffer">
         <div class="row">
             <div class="col-md-12">
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>            
+                    {{ flashMessage }}            
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-12">
                 <div class="card noMargin">
                     <div class="row valign">
                         <div class="col-md-2">
@@ -168,10 +176,10 @@
             });
             //alert("toto" + listResult);
             $("#myvote").attr('value', listResult);  
-            
+
             //return false; //is superfluous, but I put it here as a fallback
             self.submit();
-            
+
         });
 
 

@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Vote
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Glukose\EnjolrasBundle\Entity\VoteRepository")
  */
 class Vote
 {
@@ -64,6 +64,11 @@ class Vote
     public function getId()
     {
         return $this->id;
+    }
+ 
+    public function __toString()
+    {
+        return $this->vote;
     }
 
     /**
