@@ -56,6 +56,13 @@ class Subject
      */
     private $termine;
  
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="voteSimple", type="boolean", nullable=true)
+     */
+    private $voteSimple;
+ 
      /**
      * @var string
      *
@@ -273,5 +280,28 @@ class Subject
     public function getDateFin()
     {
         return $this->dateFin;
+    }
+
+    /**
+     * Set gagnant
+     *
+     * @param string $gagnant
+     * @return Subject
+     */
+    public function setGagnant($gagnant)
+    {
+        $this->gagnant = $gagnant;
+
+        return $this;
+    }
+
+    /**
+     * Get gagnant
+     *
+     * @return string 
+     */
+    public function getGagnant()
+    {
+        return $this->gagnant;
     }
 }

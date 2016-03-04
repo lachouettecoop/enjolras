@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Glukose\EnjolrasBundle\Entity\Solution as Solution;
 
 class SubjectAdmin extends Admin
 {
@@ -25,10 +26,12 @@ class SubjectAdmin extends Admin
                     'data-date-format' => 'DD/MM/YYYY',
                 )
             ))
+            ->add('voteSimple')
             ->add('description', 'textarea', array(
                 'attr' => array('class' => 'ckeditor'), 
                 'required' => false)
                  )
+
             ->add('termine', null, array('required' => false))
             ->add('solutions', 'sonata_type_collection', array(
                 'cascade_validation' => true,
@@ -59,15 +62,29 @@ class SubjectAdmin extends Admin
             ->addIdentifier('title')
             ;
     }
-    
+
+
+    public function prePersist($subject) {
+        $this->preUpdate($subject);           
+    }
+
     public function preUpdate($subject) {
+
+        //simple vote Init
+        if($subject->getVoteSimple() && $subject->getSolutions()->isEmpty()){
+            
+            $subject->addSolution(new Solution('oui'));
+            $subject->addSolution(new Solution('non'));
+            $subject->addSolution(new Solution('ne se prononce pas'));
+
+        }
+
         if($subject->getSolutions() != null){
-            foreach($subject->getSolutions() as $solution){
-                //on établi la relation entre ouvrage et la table intérmédiaire autre participant
+            foreach($subject->getSolutions() as $solution){            
                 $solution->setSubject($subject);
             }
         }
     }
-       
+
 
 }

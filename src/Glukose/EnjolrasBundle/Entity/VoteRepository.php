@@ -24,5 +24,22 @@ class VoteRepository extends EntityRepository
             ->getQuery()
             ->getOneOrNullResult();            
     }
+    
+    public function findVotesBySubjectVote($idSubject, $title)
+    {
+
+        $qb = $this
+            ->createQueryBuilder('v')
+            ->select('COUNT(v)')
+            ->where('v.subject = :idsujet')
+            ->andWhere('v.vote LIKE :vote')
+            ->setParameter('idsujet', $idSubject)
+            ->setParameter('vote', $title)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getOneOrNullResult();            
+    }
 
 }

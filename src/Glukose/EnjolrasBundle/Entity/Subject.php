@@ -56,6 +56,13 @@ class Subject
      */
     private $termine;
  
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="voteSimple", type="boolean", nullable=true)
+     */
+    private $voteSimple;
+ 
      /**
      * @var string
      *
@@ -296,5 +303,28 @@ class Subject
     public function getGagnant()
     {
         return $this->gagnant;
+    }
+
+    /**
+     * Set voteSimple
+     *
+     * @param boolean $voteSimple
+     * @return Subject
+     */
+    public function setVoteSimple($voteSimple)
+    {
+        $this->voteSimple = $voteSimple;
+
+        return $this;
+    }
+
+    /**
+     * Get voteSimple
+     *
+     * @return boolean 
+     */
+    public function getVoteSimple()
+    {
+        return $this->voteSimple;
     }
 }

@@ -69,6 +69,14 @@ class Solution
     {
         return $this->title;
     }
+ 
+    /**
+     * Constructor
+     */
+    public function __construct($title)
+    {
+       $this->title = $title;
+    }
 
     /**
      * Set title

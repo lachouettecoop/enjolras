@@ -76,23 +76,46 @@ class MainController extends Controller
 
         $vote = $repositoryV->findVoteByUserSubject($idSubject, $user->getId());
 
-        //Display a readable vote for the user
-        $classement = explode(">", $vote);
-        $solutions = array();
-        foreach ($classement as $idSolution){
-            $solutions[] = $repositoryS->find($idSolution);
-        }
 
+        //if simple vote
+        if($subject->getVoteSimple()){
 
-        if($subject){
+            $tabResults = array();
+
+            //compute result for graphic chart
+            if($subject->getTermine()){
+                foreach($subject->getSolutions() as $solution){
+                    $tabResults[] = array($solution, 
+                                          $repositoryV->findVotesBySubjectVote($idSubject, $solution->getTitle())
+                                         );
+                }
+
+            }
+
+            return $this->render('GlukoseEnjolrasBundle:Main:showSubjectSimpleVote.html.twig',
+                                 array('subject' => $subject,
+                                       'tabResults'   => $tabResults,
+                                       'vote'   => $vote
+                                      ));            
+        } else {
+
+            //else condorcet classement
+
+            //Display a readable vote for the user
+            $classement = explode(">", $vote);
+            $solutions = array();
+            foreach ($classement as $idSolution){
+                $solutions[] = $repositoryS->find($idSolution);
+            }
+
             return $this->render('GlukoseEnjolrasBundle:Main:showSubject.html.twig',
                                  array('subject' => $subject,
                                        'vote'   => $vote,
                                        'solutions'   => $solutions)
-                                );
-        }else{
-            throw new NotFoundHttpException("Page not found");
-        }                
+                                );            
+        }
+
+
     }
 
 
@@ -165,7 +188,14 @@ class MainController extends Controller
             }
 
             //return voting view
-            return $this->render('GlukoseEnjolrasBundle:Main:voteCondorcet.html.twig',
+            if($subject->getVoteSimple()){
+                $view = 'GlukoseEnjolrasBundle:Main:voteBinary.html.twig';
+            }else{
+                $view = 'GlukoseEnjolrasBundle:Main:voteCondorcet.html.twig';
+            }
+
+
+            return $this->render($view,
                                  array('subject' => $subject)
                                 );
         }else{
@@ -222,31 +252,24 @@ class MainController extends Controller
             ->getManager();
 
         $repository = $em->getRepository('GlukoseEnjolrasBundle:Subject');
-        $repositoryV = $em->getRepository('GlukoseEnjolrasBundle:Vote');
-        $repositoryS = $em->getRepository('GlukoseEnjolrasBundle:Solution');
 
         $subject = $repository->find($idSubject);
 
         $solutions = $subject->getSolutions();
         $votes = $subject->getVotes();
 
-        //The Election Object
-        $condorcet = new Election();
+        $solutionsArray = array();
 
-        foreach($solutions as $candidat){
-            $condorcet->addCandidate($candidat->getId());
+        foreach($solutions as $candidat){ 
+            $id = $candidat->getId();
+            $solutionsArray[$id] = $candidat;
         }
 
-        foreach($votes as $vote){
-            $condorcet->addVote(new Vote ($vote->getVote()));
-        }
-        
-        return $this->render('GlukoseEnjolrasBundle:Main:showSubject.html.twig',
+
+        return $this->render('GlukoseEnjolrasBundle:Main:showResults.html.twig',
                              array('subject' => $subject,
-                                   'vote'   => $vote,
-                                   'solutions'   => $solutions,
-                                   'result'  => $result, 
-                                   'looser'  => $resultLooser)
+                                   'votes'   => $votes,
+                                   'solutions'   => $solutionsArray)
                             );
 
     }
