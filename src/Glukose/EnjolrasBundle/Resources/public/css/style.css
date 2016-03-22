@@ -55,7 +55,7 @@ body {
 .card {
     margin: 10px 0;
     border: 0;
-    padding: 15px 20px;
+    padding: 20px 40px;
     min-height: 50px;
     color: #3c4048;
     background: #fff;
@@ -81,10 +81,12 @@ body {
     vertical-align: middle;
 }
 
+.titleBig { font-family: arial, serif; line-height: 1.5; margin: 0 0 0px; font-size: 30px; margin-bottom: 20px; }
 h1 {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 22px; }
-h2 {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 18px; color: #c0392b; }
-h3 {  font-family: opensans, serif; line-height: 1.25; margin: 0 0 0px; font-size: 16px; color: #212121; }
-h1.slogan {  font-family: krinkes, serif; line-height: 1.25; margin: 0 0 0px; font-size: 30px;}
+h2 {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 18px; color: #c0392b; margin-bottom: 15px;}
+h3 {  font-family: opensans, serif; line-height: 1.25; margin: 0 0 0px; font-size: 16px; color: #212121; margin-bottom: 10px; }
+h1.slogan {  font-family: krinkes, serif; line-height: 1.25; margin: 0 0 0px; font-size: 30px; color: #34495e;}
+
 
 /* Wrapper for page content to push down footer */
 #wrap {
