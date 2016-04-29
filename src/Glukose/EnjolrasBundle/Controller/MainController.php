@@ -30,7 +30,7 @@ class MainController extends Controller
      * 
      * @return Response
      */
-    public function showAllSubjectsAction()
+    public function showAllSubjectsAction(Request $request)
     {
         //get all the subjects
         $repository = $this
@@ -40,12 +40,13 @@ class MainController extends Controller
             ;
 
         $subjects = $repository->findByTermine(false);
-        $subjectsTermine = $repository->findByTermine(true);
+        $subjectsTermine = $repository->findByTermine(true);        
 
         return $this->render('GlukoseEnjolrasBundle:Main:showAllSubjects.html.twig',
                              array('subjects' => $subjects,
                                    'subjectsTermine' => $subjectsTermine)
                             );
+        
     }
 
 
@@ -55,7 +56,7 @@ class MainController extends Controller
      * @param  integer  $idSubject Id of the selected subject
      * @return Response 
      */
-    public function showSubjectAction($idSubject)
+    public function showSubjectAction($idSubject, Request $request)
     {
         //find selected subject
         $em = $this
@@ -70,7 +71,7 @@ class MainController extends Controller
 
         $user = $this->getUser();
         if($user == null){
-            /*$request->getSession()->set('redirectResponse', true);*/
+            $request->getSession()->set('routeAfter', $request->headers->get('referer'));
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 

@@ -231,3 +231,33 @@ knp_disqus:
     forums:
         lorem:
             shortname: %knp_disqus.lorem.shortname%
+            
+fr3d_ldap:
+    driver:
+        host:                %ldapHost%
+        port:                389    # Optional
+        username:            %ldapAdminUser%    # Optional
+        password:            %ldapAdminPass%  # Optional
+        bindRequiresDn:      true   # Optional
+#       baseDn:              dc=lachouettecoop,dc=fr   # Optional
+        accountFilterFormat: (&(cn=%s)) # Optional. sprintf format %s will be the username
+#       optReferrals:        false  # Optional
+#       useSsl:              true   # Enable SSL negotiation. Optional
+#       useStartTls:         true   # Enable TLS negotiation. Optional
+#       accountCanonicalForm: 3 # ACCTNAME_FORM_BACKSLASH this is only needed if your users have to login with something like HOST\User
+#       accountDomainName: HOST
+#       accountDomainNameShort: HOST # if you use the Backslash form set both to Hostname than the Username will be converted to HOST\User
+    user:
+        baseDn: %baseDn%
+        filter: (&(ObjectClass=person))
+        usernameAttribute: cn # Optional
+        attributes:          # Specify ldap attributes mapping [ldap attribute, user object method]
+            - { ldap_attr: cn,  user_method: setUsername } # Default
+            - { ldap_attr: mail,   user_method: setEmail }     # Optional
+            - { ldap_attr: sn,   user_method: setName }     # Optional
+            - { ldap_attr: description,   user_method: setPrenom }     # Optional
+
+#           - { ldap_attr: ...,  user_method: ... }         # Optional
+#   service:
+#       user_hydrator: fr3d_ldap.user_hydrator.default # Overrides default user hydrator
+#       ldap_manager: fr3d_ldap.ldap_manager.default   # Overrides default ldap manager

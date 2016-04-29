@@ -85,9 +85,18 @@ body {
 h1 {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 22px; }
 h2 {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 18px; color: #c0392b; margin-bottom: 15px;}
 h3 {  font-family: opensans, serif; line-height: 1.25; margin: 0 0 0px; font-size: 16px; color: #212121; margin-bottom: 10px; }
-h1.slogan {  font-family: krinkes, serif; line-height: 1.25; margin: 0 0 0px; font-size: 30px; color: #34495e;}
+h1.slogan {  font-family: sortsmillgoudy, serif; line-height: 1.25; margin: 0 0 0px; font-size: 30px; color: #34495e; }
 
-
+.mainh2{
+    font-size: 26px;
+    margin-top: 15px;
+}
+.mainh3{
+    font-family: sortsmillgoudy, serif;
+    font-size: 20px;
+    color: #34495e;    
+    font-weight: 700;
+}
 /* Wrapper for page content to push down footer */
 #wrap {
     min-height: 100%;

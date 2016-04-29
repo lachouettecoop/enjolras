@@ -41,8 +41,12 @@
                   <li class=""><a href="{{path('glukose_enjolras_subjects')}}">Décisions</a></li>
                </ul>
                <ul class="nav navbar-nav navbar-right navbar-nav-fancy">
-
-                  <li><a href="">Connexion</a></li>
+                  {% if not app.user %}
+                  <li><a href="{{path('fos_user_security_login')}}">Connexion</a></li>
+                  {% else %}
+                  <li><a><i class="glyphicon glyphicon-user"></i> {{app.user}}</a></li>
+                  <li><a href="{{path('fos_user_security_logout')}}">Déconnexion</a></li>
+                  {% endif %}
                </ul>
             </div><!--/.nav-collapse -->
          </div>
