@@ -35,7 +35,7 @@
                     <div>{{subject.subtitle}}</div>
                 </div>
                 <div class="col-md-2 center">
-                    {{subject.votes | length}} votes<br />
+                    {% if is_granted('ROLE_SUPER_ADMIN') %} {{subject.votes | length}} votes <br />{% endif %}
 
                     {% set difference = date(subject.dateFin).diff(date("now")) %}                    
 
