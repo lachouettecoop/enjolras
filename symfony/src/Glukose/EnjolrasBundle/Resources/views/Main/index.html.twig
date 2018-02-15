@@ -1,0 +1,122 @@
+{% extends "GlukoseEnjolrasBundle::layout.html.twig" %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 card">
+            <div class="bottom-buffer">
+                <h1 class="titleBig ">Enjolras : vote électronique </h1>
+                <h2 class="mainh2">Introduction</h2>
+                <p>
+                    Bienvenue sur la plateforme de décision <a href="https://github.com/glukose/Enjolras">Enjolras</a> qui propose un vote électronique démocratique et de confiance. Le système propose deux types de vote :
+                </p>
+            </div>
+            <div class="row top-buffer bottom-buffer">
+                <div class="col-md-6">
+                    <h3 class="mainh3">Le vote simple</h3>
+                    <p>Lorsqu'une question est dite simple, on peut y répondre par oui ou non.
+                        Le vote est accepté si la majorité est atteinte ou par une condition plus restrictive (75% des votants ont répondu par l'affirmative).
+                    </p>
+                    <i> Exemple : Voulez vous autoriser le travail le dimanche ?</i>
+                    <ul>
+                        <li>Oui</li>
+                        <li>Non</li>
+                        <li>Ne se prononce pas</li>
+                    </ul>
+                    <p> Alice a répondu :<strong>Non</strong></p>
+
+
+                </div>
+                <div class="col-md-6">
+                    <h3 class="mainh3">Le vote par classement</h3>
+                    <p>Lorsqu'une question possède au minimum trois propositions, il est possible de classer les propositions par ordre de préférence. Un algorithme déterminera ensuite le gagnant de l'élection.</p>
+                    <i>Quel est votre constructeur automobile préféré ?</i>
+                    <ul>
+                        <li>Renault</li>
+                        <li>Peugeot</li>
+                        <li>Citroën</li>
+                    </ul>
+                    <p> Bob à répondu :<strong>Peugeot > Renault > Citroën</strong></p>
+
+
+                </div>
+            </div>
+            <h2 class="mainh2">Le vote par classement</h2>
+            <h3 class="mainh3">Principe</h3>
+            <p>
+                Si l'on reprend l'exemple des constructeurs automobile cité plus haut, un électeur pourra indiquer une préférence parmis les propositions en les classants.
+            </p>
+            <ul>
+                <li>13 personnes ont voté : Peugeot > Citroën > Renault </li>
+                <li>10 personnes ont voté : Citroën > Renault > Peugeot </li>
+                <li> 5 personnes ont voté : Renault > Citroën > Peugeot </li>
+            </ul>
+            <p>C'est Citroën qui emporte ce scrutin car il fait plus consensus que les autres. Avec une méthode classique c'est Peugeot qui l'aurait emporté avec 13 personnes qui l'ont choisi en premier.</p>
+            <br />
+
+            <h3 class="mainh3">Algotithmes</h3>
+            <div class="row valign">
+                <div class="col-md-2">
+                    <img src="{{asset('bundles/glukoseenjolras/images/condorcet-logo.png')}}" width="100" height="" alt="condorcet " />
+                </div>
+                <div class="col-md-10">
+                    <p>
+                        Afin de déterminer le gagnant de l'élection, l'algorithme dit de Condorcet est utilisé pour faire une comparaison paire à paire entre les propositions. Cet algorithme n'offre pas toujours un gagnant (égalité parfaite entre deux candidats) mais d'autres alternatives permettent un calcul différent des votes.
+                    </p>
+                    <p>
+                        L'algorithme de Condorcet est implémenté par l'intermédiaire de la librairie <a href="https://github.com/julien-boudry/Condorcet">PHP/Condorcet (par Julien Boudry)</a>
+
+                    </p>
+                </div>
+
+            </div>
+            <br />
+            <br />
+
+            <h2 class="mainh2">Fiabilité du vote électronique</h2>
+            <h3 class="mainh3">Vérifiabilité </h3>
+            <p>
+                Le principe de vérifiabilité du vote sur Internet est un des critères permettant de s’assurer de la sécurisation des bulletins de vote : il permet aux votants de vérifier que le contenu de leur bulletin n’a pas été modifié par un acte malveillant de type cyberattaque.
+            </p>
+            <p>
+                Dans de nombreuses démocraties représentatives, le vote à bulletin secret rend le choix du votant secret pendant et après le vote. Cette contrainte rend très complexe la conception d'un système de vote sécurisé et vérifiable.
+                Ce principe est remis en cause avec un vote secret pendant le scrutin et qui est ensuite rendu public. Ce qui permet de garantir très simplement les deux principes suivants :
+            </p>
+            <ul>
+                <li>Toute personne peut vérifier son vote dans une liste publique comportant son nom et son choix.</li>
+                <li>Toute personne peut re-compter les votes indépendamment à travers la liste publique des votes.</li>                
+            </ul>
+            <p>Cette vérification devra être simple et accessible au plus grand nombre.</p>
+            <br />
+
+            <h3 class="mainh3">Vote secret - Vote public </h3>
+            <p>
+                Afin d'éviter toute influence (intimidation ou subornation) chaque électeur peut voter depuis chez lui, pour la proposition de son choix. Les votes sont tenus secrets jusqu'à la fin de la période de vote. Une fois l'élection finie, la liste des votants et de leurs votes est publiée. Chacun peut ainsi s'assurer de la bonne tenue du scrutin.
+                La publication des résultats permet d'assurer un espace de débat plus ample dans la vie démocratique, chacun est responsable de son vote et peut porter ses idées sur la place publique.</p>
+            <br />
+
+            <h3 class="mainh3">Logiciel Libre </h3>
+            <p>
+                Une autre garantie pour la vérifiabilité du vote est la publication du code source du logiciel utilisé et des algorithmes déterminant le gagnant de l'élection. Enjolras est distribué sous la licence GPL v3
+            </p>
+            <br />
+            
+
+
+
+            <br />
+            <br />
+            <h2>À propos</h2>
+            <p class="">
+                D'où vient ce
+                <a href="https://fr.wikipedia.org/wiki/Enjolras_%28Les_Mis%C3%A9rables%29">  nom </a>  ?
+            </p>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

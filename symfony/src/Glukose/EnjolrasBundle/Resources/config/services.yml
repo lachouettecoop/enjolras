@@ -1,0 +1,23 @@
+services:
+    sonata.admin.subject:
+        class: Glukose\EnjolrasBundle\Admin\SubjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Discussions", label: "Sujet", icon: %iconAutre% }
+        arguments:
+            - ~
+            - Glukose\EnjolrasBundle\Entity\Subject
+            - ~
+        calls:
+            - [ setTranslationDomain, [EnjolrasBundle]]
+            - [ setTemplate, [edit, GlukoseEnjolrasBundle:Admin:editSubject.html.twig]]
+            
+    sonata.admin.solution:
+        class: Glukose\EnjolrasBundle\Admin\SolutionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Discussions", label: "Solution", icon: %iconAutre% }
+        arguments:
+            - ~
+            - Glukose\EnjolrasBundle\Entity\Solution
+            - ~
+        calls:
+            - [ setTranslationDomain, [EnjolrasBundle]]

@@ -1,0 +1,83 @@
+{% extends "GlukoseEnjolrasBundle::layout.html.twig" %}
+
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="breadcrumb-line clearfix">
+            <ul class="breadcrumb">
+                <li><a href="{{path('glukose_enjolras_homepage')}}" accesskey="h" data-original-title="" title=""><span class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="{{path('glukose_enjolras_homepage')}}" accesskey="h" data-original-title="" title="">Accueil</a></li>
+                <li><a href="{{path('glukose_enjolras_subjects')}}" accesskey="h" data-original-title="" title="">Chouette Coop</a></li>
+                <li><a href="{{path('glukose_enjolras_subjects')}}" accesskey="h" data-original-title="" title="">Décisions</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="row bottom-buffer">
+
+        <div class="headMainTopic noMargin">
+            En attente de décision
+        </div>
+        {% for subject in subjects %}
+
+        <div class="card {% if loop.first %}noMargin{% endif %}">
+
+            <div class="row valign">
+                <div class="col-md-1">
+                    <img src="{{asset('bundles/glukoseenjolras/images/readIcon.png')}}" width="" height="45" >
+
+                </div>
+                <div class="col-md-8">
+                    <a href="{{path('glukose_enjolras_oneSubject', {'idSubject': subject.id})}}"><h2>{{subject.title}}</h2></a>
+                    <div>{{subject.subtitle}}</div>
+                </div>
+                <div class="col-md-2 center">
+                    {% if is_granted('ROLE_SUPER_ADMIN') %} {{subject.votes | length}} votes <br />{% endif %}
+
+                    {% set difference = date(subject.dateFin).diff(date("now")) %}                    
+
+                    Reste {{ difference.days }} jours                 
+                </div>
+                <div class="col-md-1">
+                    <a href="{{path('glukose_enjolras_oneSubject', {'idSubject': subject.id})}}" class="btn btn-default">Voir</a>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="headMainTopic noMargin">
+            Décision terminées
+        </div>
+        {% for subject in subjectsTermine %}
+        <div class="card {% if loop.first %}noMargin{% endif %}">
+
+            <div class="row valign">
+                <div class="col-md-1">
+                    <img src="{{asset('bundles/glukoseenjolras/images/iconChecked.jpg')}}" width="" height="40" >
+
+                </div>
+                <div class="col-md-10">
+                    <a href="{{path('glukose_enjolras_oneSubject', {'idSubject': subject.id})}}"><h2>{{subject.title}}</h2></a>
+                    <div>{{subject.subtitle}}</div>
+                </div>
+                <div class="col-md-1">                    
+                    <a href="" > <span class="label label-md label-default"> {{subject.dateFin | date("d-m-Y") }}</span> </a><br />                   
+                </div>
+            </div>
+        </div>                
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

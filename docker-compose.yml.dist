@@ -1,0 +1,37 @@
+application:
+    image: tianon/true
+    volumes:
+        - ./symfony:/var/www/symfony
+        - ./logs/symfony:/var/www/symfony/app/logs
+
+db:
+    image: mysql
+    ports:
+        - 3306:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: symfony
+        MYSQL_USER: symfony
+        MYSQL_PASSWORD: symfonypassword
+php:
+    build: php
+    expose:
+        - 9000/tcp
+    volumes_from:
+        - application
+    links:
+        - db
+    working_dir: /var/www/symfony
+
+nginx:
+    build: nginx
+    ports:
+        - 80
+    links:
+        - php
+    volumes_from:
+        - application
+    volumes:
+        - ./logs/nginx/:/var/log/nginx
+    environment:
+        VIRTUAL_HOST: vote.lachouettecoop.local
