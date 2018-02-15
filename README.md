@@ -18,6 +18,12 @@
 
     docker run -ti --rm --user $(id -u):$(id -g) -v $(pwd)/symfony:/app -v ~/.composer:/root/composer composer install
 
+NOTE(pht): ça, ou quelque chose du genre debian
+
+    docker-compose run --rm php composer install
+
+(Mais ça fait exploser la mémoire sur ma machine :/ )
+
 Répondre aux questions (laisser les valeurs par défaut pour les autres):
 
     Some parameters are missing. Please provide them.
