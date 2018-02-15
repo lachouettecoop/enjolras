@@ -34,7 +34,6 @@ Répondre aux questions (laisser les valeurs par défaut pour les autres):
     locale (fr):
     secret (ThisTokenIsNotSoSecretChangeIt):
 
-
 # Creer le schema de base de donnée
 
     chmod +x symfony/app/console

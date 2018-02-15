@@ -37,7 +37,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\DisqusBundle\KnpDisqusBundle(),
 
             //LDAP
-            // new FR3D\LdapBundle\FR3DLdapBundle(),
+            new FR3D\LdapBundle\FR3DLdapBundle(),
 
             //My Bundles
             new Glukose\UserBundle\GlukoseUserBundle(),

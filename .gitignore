@@ -12,3 +12,4 @@ symfony/app/console
 /symfony/web/bundles/
 /symfony/web/uploads/
 docker-compose.yml
+logs
