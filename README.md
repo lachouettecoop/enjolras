@@ -16,9 +16,9 @@
 
 # Installer les dependances de l'application php avec composer
 
-    docker run -ti --rm -v $(pwd)/symfony:/app -v ~/.composer:/root/composer composer/composer:php7 install
+    docker run -ti --rm --user $(id -u):$(id -g) -v $(pwd)/symfony:/app -v ~/.composer:/root/composer composer install
 
-Répondre aux questions:
+Répondre aux questions (laisser les valeurs par défaut pour les autres):
 
     Some parameters are missing. Please provide them.
     database_driver (pdo_mysql):
@@ -35,17 +35,12 @@ Répondre aux questions:
     secret (ThisTokenIsNotSoSecretChangeIt):
 
 
-
-
-    chmod -R 777 symfony/app/cache/ logs/
-    chmod +x symfony/app/console
-
 # Creer le schema de base de donnée
 
-    docker-compose run —rm php app/console doctrine:schema:create
-    docker-compose run —rm php app/console assets:install —symlink —relative
-    docker-compose run —rm php app/console fos:user:create adminuser —super-admin
-
+    chmod +x symfony/app/console
+    docker-compose run --rm php app/console doctrine:schema:create
+    docker-compose run --rm php app/console assets:install —symlink —relative
+    docker-compose run --rm php app/console fos:user:create adminuser —super-admin
 
 
 # composer.phar install
