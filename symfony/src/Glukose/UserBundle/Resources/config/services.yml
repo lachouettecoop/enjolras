@@ -5,6 +5,6 @@ parameters:
 services:
     glukose_user.component.authentication.handler.login_success_handler:
         class:  %glukose_user.component.authentication.handler.login_success_handler.class%
-        arguments:  [@router, @security.context, @session]
+        arguments:  ["@router", "@security.context", "@session"]
         tags:
             - { name: 'monolog.logger', channel: 'security' }

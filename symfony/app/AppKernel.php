@@ -34,7 +34,7 @@ class AppKernel extends Kernel
             //Images manipulatin
             new Liip\ImagineBundle\LiipImagineBundle(),
             //Comments on disqus
-            new Knp\Bundle\DisqusBundle\KnpDisqusBundle(),
+           // new Knp\Bundle\DisqusBundle\KnpDisqusBundle(),
 
             //LDAP
             new FR3D\LdapBundle\FR3DLdapBundle(),

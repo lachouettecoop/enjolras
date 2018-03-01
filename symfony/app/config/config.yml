@@ -42,9 +42,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources:
-            - 'SonataCoreBundle:Form:datepicker.html.twig'
+    form_themes:
+        - 'SonataCoreBundle:Form:datepicker.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -93,6 +92,9 @@ fos_user:
     db_driver:     orm
     firewall_name: main
     user_class:    Glukose\UserBundle\Entity\User
+    from_email:
+        address: "noreply@yourcompany.com"
+        sender_name: "No Reply"
 
 
 # SONATA ADMIN Configuration
@@ -224,13 +226,6 @@ liip_imagine:
        my_thumb_in:
            filters:
                thumbnail: { size: [110, 80], mode: inset }
-
-knp_disqus:
-    api_key: %knp_disqus.api_key%
-    secret_key: %knp_disqus.secret_key% # optional, for SSO auth only
-    forums:
-        lorem:
-            shortname: %knp_disqus.lorem.shortname%
 
 # fr3d_ldap:
 #     driver:

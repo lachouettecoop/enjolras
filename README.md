@@ -16,7 +16,7 @@
 
 # Installer les dependances de l'application php avec composer
 
-    docker run -ti --rm --user $(id -u):$(id -g) -v $(pwd)/symfony:/app -v ~/.composer:/root/composer composer install
+    docker run -ti --rm --user $(id -u):$(id -g) -v $(pwd)/symfony:/app -v ~/.composer:/root/composer composer install --ignore-platform-reqs
 
 NOTE(pht): ça, ou quelque chose du genre debian
 
