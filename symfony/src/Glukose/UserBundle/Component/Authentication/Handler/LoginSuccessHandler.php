@@ -2,9 +2,10 @@
 
 namespace Glukose\UserBundle\Component\Authentication\Handler;
 
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authentication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -17,7 +18,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     protected $security;
     private static $key;
 
-    public function __construct(Router $router, SecurityContext $security, Session $session)
+    public function __construct(Router $router, AuthorizationChecker $security, Session $session)
     {
         $this->router = $router;
         $this->security = $security;
