@@ -27,12 +27,12 @@ class User extends BaseUser implements LdapUserInterface
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $prenom;   
+    protected $prenom;
 
     /**
-    * Ldap Object Distinguished Name
-    * @ORM\Column(type="string", length=128)
-    * @var string $dn
+     * Ldap Object Distinguished Name
+     * @ORM\Column(type="string", nullable=true)
+     * @var string $dn
      */
     private $dn;
 
@@ -48,21 +48,54 @@ class User extends BaseUser implements LdapUserInterface
         if (empty($this->roles)) {
             $this->roles[] = 'ROLE_USER';
         }
+        if (empty($this->dn)) {
+            $this->dn = 'empty';
+        }
+    }
+    
+    /**
+     * Set name.
+     *
+     * @param string|null $name
+     *
+     * @return User
+     */
+    public function setName($name = null)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
-    public function setName($name) {
-        $this->name = $name;
-    }
- 
+    /**
+     * Get name.
+     *
+     * @return string|null
+     */
     public function getName()
     {
         return $this->name;
     }
- 
-    public function setPrenom($prenom) {
+
+    /**
+     * Set prenom.
+     *
+     * @param string|null $prenom
+     *
+     * @return User
+     */
+    public function setPrenom($prenom = null)
+    {
         $this->prenom = $prenom;
+
+        return $this;
     }
- 
+
+    /**
+     * Get prenom.
+     *
+     * @return string|null
+     */
     public function getPrenom()
     {
         return $this->prenom;

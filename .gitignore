@@ -2,6 +2,7 @@
 /symfony/app/cache/*
 !symfony/app/cache/.gitkeep
 /symfony/app/config/parameters.yml
+/symfony/app/config/parametersLdap.yml
 /symfony/app/logs/*
 !symfony/app/logs/.gitkeep
 /symfony/app/phpunit.xml
@@ -13,3 +14,4 @@
 docker-compose.yml
 logs
 .idea/
+*.php~
