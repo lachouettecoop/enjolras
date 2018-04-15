@@ -1,7 +1,3 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
-
 glukose_enjolras:
     resource: "@GlukoseEnjolrasBundle/Resources/config/routing.yml"
     prefix:   /
