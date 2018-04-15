@@ -1,0 +1,5 @@
+parameters:
+    ldapHost: my.ldap.com
+    ldapAdminUser: cn=admin
+    ldapAdminPass: <changeme>
+    baseDn: dc=lachouettecoop,dc=fr
