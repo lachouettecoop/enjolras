@@ -5,7 +5,7 @@ application:
         - ./logs/symfony:/var/www/symfony/app/logs
 
 db:
-    image: mysql
+    image: mariadb:10.1.2
     ports:
         - 3306:3306
     environment:
