@@ -28,14 +28,8 @@ Lancer le proxy
     docker-compose up -d
 
 # Installer les dependances de l'application php avec composer
-
-    docker run -ti --rm --user $(id -u):$(id -g) -v $(pwd)/symfony:/app -v ~/.composer:/root/composer composer install --ignore-platform-reqs
-
-NOTE(pht): ça, ou quelque chose du genre debian
-
-    docker-compose run --rm php composer install
-
-(Mais ça fait exploser la mémoire sur ma machine :/ )
+d
+    docker-compose run --rm php composer install --ignore-platform-reqs
 
 Répondre aux questions (laisser les valeurs par défaut pour les autres):
 
@@ -66,6 +60,13 @@ Répondre aux questions (laisser les valeurs par défaut pour les autres):
     sudo chmod -R 777 symfony/var/cache
     sudo chmod -R 777 symfony/var/logs
     
+## Démarrer le serveur 
+
+    docker-compose run --rm php bin/console server:run
+    
+(Note de PH: à cette étape, le serveur démarre, mais quand je me loggue sur localhost:8000, j'ai rien ; et sur le ngix localhost:80, je prends une 503... )
+
+
 # Fin de l'installation
 
 ## Autres commandes
