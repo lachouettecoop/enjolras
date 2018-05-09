@@ -3,16 +3,18 @@ application:
     volumes:
         - ./symfony:/var/www/symfony
         - ./logs/symfony:/var/www/symfony/app/logs
+        - ./data/mysql:/var/lib/mysql
 
 db:
     image: mysql
-    ports:
-        - 3306:3306
     environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: symfony
         MYSQL_USER: symfony
         MYSQL_PASSWORD: symfonypassword
+    volumes_from:
+        - application
+
 php:
     build: php
     expose:
