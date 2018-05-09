@@ -73,9 +73,13 @@ class Solution
     /**
      * Constructor
      */
-    public function __construct($title)
+    public function __construct($title = '')
     {
-       $this->title = $title;
+        if($title != ''){
+            $this->title = $title;
+        }
+        return $this;
+
     }
 
     /**

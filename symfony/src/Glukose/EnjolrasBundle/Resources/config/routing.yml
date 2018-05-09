@@ -21,4 +21,3 @@ glukose_enjolras_cloture_vote:
 glukose_enjolras_publication_resultats:
     path:     /sujet/vote/resultats/{idSubject}
     defaults: { _controller: GlukoseEnjolrasBundle:Main:publicationResultat, idSubject:'1' }
-

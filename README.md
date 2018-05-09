@@ -76,3 +76,7 @@ Répondre aux questions (laisser les valeurs par défaut pour les autres):
     chmod -R 777 symfony/var/logs
     
     sudo docker-compose run --rm php app/console fos:user:promote ccel781@gmail.com ROLE_ADMIN #attention c'est - - rm
+    
+    Importer une base de données
+    docker exec -i $(docker-compose ps -q db) mysql -uuser -ppassword db_name < data.sql
+

@@ -9,7 +9,6 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [EnjolrasBundle]]
-            - [ setTemplate, [edit, GlukoseEnjolrasBundle:Admin:editSubject.html.twig]]
             
     sonata.admin.solution:
         class: Glukose\EnjolrasBundle\Admin\SolutionAdmin

@@ -34,7 +34,6 @@ class SubjectAdmin extends Admin
 
             ->add('termine', null, array('required' => false))
             ->add('solutions', 'sonata_type_collection', array(
-                'cascade_validation' => true,
                 'required' => false,
             ), array(
                 'edit'              => 'inline',
