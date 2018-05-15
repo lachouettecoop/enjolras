@@ -57,7 +57,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             //if the referer key was never set, redirect to a default route
 
         } else{
-            $route = $this->router->generate('glukose_enjolras_homepage');
+            $route = $this->router->generate('glukose_enjolras_subjects');
 
         }
 
