@@ -2,12 +2,13 @@
 
 namespace Glukose\EnjolrasBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class SolutionAdmin extends Admin
+class SolutionAdmin extends AbstractAdmin
 {
     protected $baseRouteName = 'admin_solution';
 

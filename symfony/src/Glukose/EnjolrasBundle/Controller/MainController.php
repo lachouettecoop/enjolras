@@ -3,6 +3,7 @@
 namespace Glukose\EnjolrasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Condorcet\Condorcet;
@@ -39,8 +40,8 @@ class MainController extends Controller
             ->getRepository('GlukoseEnjolrasBundle:Subject')
             ;
 
-        $subjects = $repository->findByTermine(false);
-        $subjectsTermine = $repository->findByTermine(true);        
+        $subjects = $repository->findBy(['termine'=> false, 'visible' => true]);
+        $subjectsTermine = $repository->findBy(['termine'=> true, 'visible' => true]);
 
         return $this->render('GlukoseEnjolrasBundle:Main:showAllSubjects.html.twig',
                              array('subjects' => $subjects,

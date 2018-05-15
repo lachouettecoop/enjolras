@@ -55,6 +55,13 @@ class Subject
      * @ORM\Column(name="termine", type="boolean", nullable=true)
      */
     private $termine;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean", nullable=true)
+     */
+    private $visible = true;
  
     /**
      * @var boolean
@@ -326,5 +333,29 @@ class Subject
     public function getVoteSimple()
     {
         return $this->voteSimple;
+    }
+
+    /**
+     * Set visible.
+     *
+     * @param bool|null $visible
+     *
+     * @return Subject
+     */
+    public function setVisible($visible = null)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible.
+     *
+     * @return bool|null
+     */
+    public function getVisible()
+    {
+        return $this->visible;
     }
 }

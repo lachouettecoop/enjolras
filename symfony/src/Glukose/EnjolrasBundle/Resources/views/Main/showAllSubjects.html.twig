@@ -57,7 +57,7 @@
         <div class="headMainTopic noMargin">
             Décision terminées
         </div>
-        {% for subject in subjectsTermine %}
+        {% for subject in (subjectsTermine | reverse) %}
         <div class="card {% if loop.first %}noMargin{% endif %}">
 
             <div class="row valign">

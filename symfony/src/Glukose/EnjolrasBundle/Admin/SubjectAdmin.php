@@ -2,13 +2,13 @@
 
 namespace Glukose\EnjolrasBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Glukose\EnjolrasBundle\Entity\Solution as Solution;
 
-class SubjectAdmin extends Admin
+class SubjectAdmin extends AbstractAdmin
 {
     protected $baseRouteName = 'admin_subject';
 
@@ -33,6 +33,7 @@ class SubjectAdmin extends Admin
                  )
 
             ->add('termine', null, array('required' => false))
+            ->add('visible')
             ->add('solutions', 'sonata_type_collection', array(
                 'required' => false,
             ), array(
@@ -49,7 +50,8 @@ class SubjectAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('title')            
+            ->add('title')
+            ->add('visible')
             ;
     }
 
