@@ -166,12 +166,16 @@
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-md-6 ">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <div>{{solution.pros | raw}}</div>
+                                        {%  if solution.pros != ''  %}
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                            <div>{{solution.pros | raw}}</div>
+                                        {% endif %}
                                     </div>
-                                    <div class="col-md-6 ">  
-                                         <i class="glyphicon glyphicon-minus"></i>
-                                        <div>{{solution.cons | raw}}</div>
+                                    <div class="col-md-6 ">
+                                        {%  if solution.cons != ''  %}
+                                            <i class="glyphicon glyphicon-minus"></i>
+                                            <div>{{solution.cons | raw}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
