@@ -167,7 +167,7 @@ class MainController extends Controller
             if ($request->isMethod('POST')) {
 
                 //get vote
-                $voteString = $this->get('request')->request->get('myvote');
+                $voteString = $request->get('myvote');
                 //substring last char
                 $voteString = rtrim($voteString, ">");
 
