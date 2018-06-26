@@ -228,8 +228,11 @@ class MainController extends Controller
             $condorcet->addCandidate($candidat->getId());
         }
 
+        /** @var EnjolrasVote $vote */
         foreach($votes as $vote){
-            $condorcet->addVote(new Vote ($vote->getVote()));
+            if($vote->getVote() != ''){
+                $condorcet->addVote(new Vote ($vote->getVote()));
+            }
         }
 
         $gagnant = $condorcet->getWinner();
