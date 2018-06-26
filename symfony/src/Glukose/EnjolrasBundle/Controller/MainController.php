@@ -17,7 +17,7 @@ class MainController extends Controller
 
     /**
      * Main action, displays home page
-     * 
+     *
      * @return Response
      */
     public function indexAction()
@@ -28,7 +28,7 @@ class MainController extends Controller
 
     /**
      * Show a list of all the subjects available
-     * 
+     *
      * @return Response
      */
     public function showAllSubjectsAction(Request $request)
@@ -38,24 +38,24 @@ class MainController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('GlukoseEnjolrasBundle:Subject')
-            ;
+        ;
 
         $subjects = $repository->findBy(['termine'=> false, 'visible' => true]);
         $subjectsTermine = $repository->findBy(['termine'=> true, 'visible' => true]);
 
         return $this->render('GlukoseEnjolrasBundle:Main:showAllSubjects.html.twig',
-                             array('subjects' => $subjects,
-                                   'subjectsTermine' => $subjectsTermine)
-                            );
-        
+            array('subjects' => $subjects,
+                'subjectsTermine' => $subjectsTermine)
+        );
+
     }
 
 
     /**
      * Show a subject
-     * 
+     *
      * @param  integer  $idSubject Id of the selected subject
-     * @return Response 
+     * @return Response
      */
     public function showSubjectAction($idSubject, Request $request)
     {
@@ -87,18 +87,18 @@ class MainController extends Controller
             //compute result for graphic chart
             if($subject->getTermine()){
                 foreach($subject->getSolutions() as $solution){
-                    $tabResults[] = array($solution, 
-                                          $repositoryV->findVotesBySubjectVote($idSubject, $solution->getTitle())
-                                         );
+                    $tabResults[] = array($solution,
+                        $repositoryV->findVotesBySubjectVote($idSubject, $solution->getTitle())
+                    );
                 }
 
             }
 
             return $this->render('GlukoseEnjolrasBundle:Main:showSubjectSimpleVote.html.twig',
-                                 array('subject' => $subject,
-                                       'tabResults'   => $tabResults,
-                                       'vote'   => $vote
-                                      ));            
+                array('subject' => $subject,
+                    'tabResults'   => $tabResults,
+                    'vote'   => $vote
+                ));
         } else {
 
             //else condorcet classement
@@ -111,10 +111,10 @@ class MainController extends Controller
             }
 
             return $this->render('GlukoseEnjolrasBundle:Main:showSubject.html.twig',
-                                 array('subject' => $subject,
-                                       'vote'   => $vote,
-                                       'solutions'   => $solutions)
-                                );            
+                array('subject' => $subject,
+                    'vote'   => $vote,
+                    'solutions'   => $solutions)
+            );
         }
 
 
@@ -123,9 +123,9 @@ class MainController extends Controller
 
     /**
      * Vote on a subject using condorcet Method
-     * 
+     *
      * @param  integer  $idSubject Id of the selected subject
-     * @return Response 
+     * @return Response
      */
     public function voteCondorcetAction($idSubject, Request $request)
     {
@@ -136,11 +136,11 @@ class MainController extends Controller
 
             //Route and params --> in session
             $parameters = array('idSubject' => $idSubject);
-            $route = "glukose_enjolras_voteCondorcet";            
+            $route = "glukose_enjolras_voteCondorcet";
             $request->getSession()->set('redirectResponseCustom', array('route' => $route, 'parameters' => $parameters));
 
             //redirection to connect form
-            return $this->redirect($this->generateUrl('fos_user_security_login'));    
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
         //find selected subject
@@ -158,8 +158,10 @@ class MainController extends Controller
         if($vote != null){
             $em->remove($vote);
             $em->flush();
-            $this->get('session')->getFlashBag()->add('notice','Votre précédent vote à été effacé !');    
+            $this->addFlash('success','Votre précédent vote à été effacé !');
         }
+
+
 
         if($subject){
 
@@ -168,25 +170,30 @@ class MainController extends Controller
 
                 //get vote
                 $voteString = $request->get('myvote');
-                //substring last char
-                $voteString = rtrim($voteString, ">");
 
-                //New vote
-                $enjolrasVote = new EnjolrasVote();
-                $enjolrasVote->setVote($voteString);
-                $enjolrasVote->setSubject($subject);
-                $enjolrasVote->setUser($this->getUser());
+                if($voteString == ''){
+                    $this->addFlash('danger','Votre vote ne peut pas être vide ! Merci de recommencer');
+                } else {
+                    //substring last char
+                    $voteString = rtrim($voteString, ">");
 
-                //persisting
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($enjolrasVote);
-                $em->flush();
+                    //New vote
+                    $enjolrasVote = new EnjolrasVote();
+                    $enjolrasVote->setVote($voteString);
+                    $enjolrasVote->setSubject($subject);
+                    $enjolrasVote->setUser($this->getUser());
 
-                //Flash message
-                $this->get('session')->getFlashBag()->add('notice','Merci de votre vote. Le résultat sera affiché sur cette page lors de la cloture du vote.');
+                    //persisting
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($enjolrasVote);
+                    $em->flush();
 
-                //redirect to subject
-                return $this->redirect($this->generateUrl("glukose_enjolras_oneSubject", array('idSubject' => $subject->getId())));               
+                    //Flash message
+                    $this->get('session')->getFlashBag()->add('notice','Merci de votre vote. Le résultat sera affiché sur cette page lors de la cloture du vote.');
+
+                    //redirect to subject
+                    return $this->redirect($this->generateUrl("glukose_enjolras_oneSubject", array('idSubject' => $subject->getId())));
+                }
             }
 
             //return voting view
@@ -198,8 +205,8 @@ class MainController extends Controller
 
 
             return $this->render($view,
-                                 array('subject' => $subject)
-                                );
+                array('subject' => $subject)
+            );
         }else{
             throw new NotFoundHttpException("Page not found");
         }
@@ -265,17 +272,17 @@ class MainController extends Controller
 
         $solutionsArray = array();
 
-        foreach($solutions as $candidat){ 
+        foreach($solutions as $candidat){
             $id = $candidat->getId();
             $solutionsArray[$id] = $candidat;
         }
 
 
         return $this->render('GlukoseEnjolrasBundle:Main:showResults.html.twig',
-                             array('subject' => $subject,
-                                   'votes'   => $votes,
-                                   'solutions'   => $solutionsArray)
-                            );
+            array('subject' => $subject,
+                'votes'   => $votes,
+                'solutions'   => $solutionsArray)
+        );
 
     }
 

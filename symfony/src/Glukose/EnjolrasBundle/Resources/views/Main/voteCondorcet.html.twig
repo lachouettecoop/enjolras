@@ -21,12 +21,15 @@
     <div class="row bottom-buffer">
         <div class="row">
             <div class="col-md-12">
-                {% for flashMessage in app.session.flashbag.get('notice') %}
-                <div class="alert alert-success alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>            
-                    {{ flashMessage }}            
-                </div>
+                {% for label, flashes in app.session.flashbag.all %}
+                    {% for flash in flashes %}
+                        <div class="alert alert-{{ label }} alert-dismissable">
+                            {{ flash }}
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        </div>
+                    {% endfor %}
                 {% endfor %}
+
             </div>
             <div class="col-md-12">
                 <div class="card noMargin">
@@ -38,6 +41,8 @@
                             <h1>Vote : {{subject.title}}</h1>
                             <br />
                             <p>Le vote utilise une méthode de classement, dite de condorcet, et permet de classer ses choix par ordre de préférence. <br /> Il vous suffit de "glisser/déposer" un des choix a gauche et de le placer dans la liste "Mon classement" à droite.</p>
+                            <h3>Besoin d'aide pour voter ? </h3>
+                            <p><a href="https://www.dailymotion.com/video/k56RYLNeNqXYE7r7mMY" > Consultez la vidéo tuto </a></p>
                         </div>
                     </div>
                 </div>
