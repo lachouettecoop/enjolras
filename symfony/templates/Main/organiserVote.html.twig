@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 card">
+                <div class="bottom-buffer">
+                    <h1 class="titleBig ">Organiser un vote </h1>
+                    <h2 class="mainh2">Introduction</h2>
+                    <p>
+                        Voici quelques informations utiles pour l'organisation d'un vote de l'ensemble des chouettos
+                    </p>
+                    <ul>
+                        <li>Transmission des documents max 15j avant la plénière pour envoi avec le mailing d'annonce de la plénière</li>
+                        <li>Transmission des informations pour la page du vote au max 15j avant</li>
+                        <li>Type de vote (voir <a href="https://vote.lachouettecoop.fr/details">ici</a>)</li>
+                        <li>Pour les votes importants, annonce du vote lors de la plénière d'avant</li>
+                    </ul>
+                </div>
+                <div class="row top-buffer bottom-buffer">
+                    <div class="col-md-12">
+                        <h3 class="mainh3">Formulaire à fournir pour chaque vote</h3>
+                        <ul>
+                            <li>Titre : Question soumisse au vote, si possible sous forme intérogative ex: "Êtes vous favorable au changement des statuts de l'association ?" (max 255 caractères)</li>
+                            <li>Sous titre: visible uniquement dans la liste des votes, permet de rajouter de l'information ex: "Changement des statuts pour "Les amis de La Chouette Coop""  ou "vote 1/10" </li>
+                            <li>Date et heure de début des commentaires</li>
+                            <li>Date et heure de début du vote (après les commentaires) </li>
+                            <li>Date et heure de fin </li>
+                            <li>Descriptif long, peut contenir du texte mis en forme, des liens, des embed (lecteur vidéo youtube, présentation google slide etc...), dles liens vers des répertoires ou fichiers du cloud, etc... Une description par vote est souhaitable !</li>
+                            <li>Si vote multiple (par classement) : l'ensemble des propositions</li>
+                            <li>Si vote simple les options par défaut sont "oui/non/ne se prononce pas"</li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

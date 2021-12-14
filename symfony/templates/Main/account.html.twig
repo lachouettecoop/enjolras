@@ -1,0 +1,35 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Mon compte</h1>
+                <br />
+                <h2>Mes votes précédents</h2>
+
+                <table class="table table-striped">
+                    <thead>
+                    <th>Date de fin</th>
+                    <th>Sujet</th>
+                    <th>Mon vote</th>
+                    </thead>
+                    <tbody>
+                    {% for vote in app.user.votes | reverse %}
+                    <tr>
+                        <td>{{ vote.subject.dateFin | date('d/m/Y') }}</td>
+                        <td><a href="{{ path('glukose_enjolras_oneSubject', {'id': vote.subject.id }) }}">{{ vote.subject }}</a></td>
+                        <td><a href="{{ path('glukose_enjolras_publication_resultats', {'id': vote.subject.id }) }}"> {{ vote }}</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

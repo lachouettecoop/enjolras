@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 mt-4">
+                <form class="form-signin" method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+                    <label for="inputEmail" class="sr-only">Adresse email</label>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                    <label for="inputPassword" class="sr-only">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control mt-4" placeholder="Mot de passe" required>
+                    <div class="checkbox mb-3 mt-2">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                        </label>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                    <input type="hidden" name="_target_path" value="{{ path('app_home') }}" />
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        Connexion
+                    </button>
+
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

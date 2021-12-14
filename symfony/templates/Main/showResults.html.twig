@@ -1,0 +1,214 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="container-fluid whitey">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_home')}}" accesskey="h" data-original-title="" title=""><span class="fa fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="{{path('app_home')}}" accesskey="h" data-original-title="" title="">Accueil</a></li>
+                <li class="breadcrumb-item" ><a href="{{path('glukose_enjolras_subjects')}}" accesskey="h" data-original-title="" title="">Décisions</a></li>
+                <li class="breadcrumb-item" ><a href="{{path('glukose_enjolras_oneSubject', {'id': subject.id})}}" accesskey="h" data-original-title="" title="">{{ subject.title  }}</a></li>
+                <li class="breadcrumb-item" ><a href="#" accesskey="h" data-original-title="" title="">Résultats</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row bottom-buffer">
+            <div class="card">
+                <div class="col-md-9">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>Publication des résultats : {{subject.title}}</h1>
+                            </div>
+
+                            <div class="col-md-12 top-buffer">
+                                <hr />
+                                {% for key, solution in solutions %}
+                                    {% if not subject.voteSimple %}
+                                        <span class="label label-default">Id : {{ key }}</span>
+                                    {% endif %}
+
+                                    {{ solution }}<br />
+                                {% endfor %}
+                            </div>
+
+                            {% if not subject.voteSimple %}
+
+
+                            <div class="col-md-12 top-buffer">
+                                <table class="table table-striped">
+                                    <thead>
+                                    {% for pair in pairs %}
+                                        <th>{% if loop.first %}N°{% endif %}</th>
+                                    {% endfor %}
+                                    </thead>
+                                    <tbody>
+                                    {% for key,pair in pairs %}
+                                        <tr>
+                                            <td>{{  key }}</td>
+                                            {% for concurent,result in pair['win'] %}
+                                                <td style="max-width: 200px;" class="center">
+                                                    <canvas id="chartResults{{ key }}{{ concurent }}"></canvas>
+                                                    contre {{ concurent }}
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row bottom-buffer">
+            <div class="headMainTopic noMargin">
+                Liste des votes
+            </div>
+            <div class="card noMargin">
+                <div id="content">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>{% if subject.anonyme %} Code confidentiel{% else %}Nom{% endif %}</td>
+                            <td>Choix </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for vote in votes %}
+                            <tr>
+                                <td>{% if subject.anonyme %} {{ vote.user.tokenAnon }}{% else %}{{ vote.user }}{% endif %}</td>
+                                <td>
+
+                                    {% if subject.voteSimple %}
+                                        {{vote}}
+                                    {% else %}
+                                        {% set tab = vote.vote|split('>') %}
+                                        {% for element in tab %}
+                                            {% if not loop.first %}
+                                                &nbsp;>&nbsp;
+                                            {% endif %}
+
+                                            <a href="#" data-toggle="tooltip" title="{{attribute(solutions, element).title}}">{{element}}</a>
+
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/chart.min.js') }}"></script>
+{% endblock %}
+
+{% block jquery %}
+
+
+
+    <script type="text/javascript">
+        $( document ).ready(function() {
+
+            {% if subject.termine %}
+
+            {% for key,pair in pairs %}
+            {% for concurent,result in pair['win'] %}
+            var ctx{{ key }}{{ concurent }} = $("#chartResults{{ key }}{{ concurent }}").get(0).getContext("2d");
+            {% endfor %}
+            {% endfor %}
+            //var myNewChart = new Chart(ctx);
+            Chart.defaults.global.responsive = true;
+
+            {% autoescape false  %}
+            Chart.defaults.global.tooltipTemplate = '<%if (label){ %><%=label%> = <%}%><%= value %>';
+            {% endautoescape %}
+            var tabColor = ['#aee058', '#e05867', '#58aee0', '#7f7f7f'];
+            var tabColorHigh = ['#a9e640', '#de3245', '#43a6e0', '#7F7F7F'];
+
+
+
+            {% for key,pair in pairs %}
+            {% for concurent,result in pair['win'] %}
+            {% if result >  pair['lose'][concurent] %}
+            {% set colorResult = 0 %}
+            {% set colorLose = 3 %}
+            {% elseif result <  pair['lose'][concurent]   %}
+            {% set colorResult = 1 %}
+            {% set colorLose = 3 %}
+            {% else  %}
+            {% set colorResult = 2%}
+            {% set colorLose = 2 %}
+            {% endif %}
+            var data{{ key }}{{ concurent }} = [
+                {
+                    value: {{result}},
+                    highlight: tabColorHigh[{{ colorResult}}],
+                    color: tabColor[{{ colorResult }}],
+                    label: "{{result}}"
+                },
+                {
+                    value: {{ pair['lose'][concurent] }},
+                    highlight: tabColorHigh[{{colorLose}}],
+                    color: tabColor[{{colorLose}}],
+                    label: "{{ pair['lose'][concurent] }}"
+                }
+            ];
+            {% endfor %}
+            {% endfor %}
+
+
+            {% for key,pair in pairs %}
+            {% for concurent,result in pair['win'] %}
+            var myPieChart{{ key }}{{ concurent }} = new Chart(ctx{{ key }}{{ concurent }}).Doughnut(data{{ key }}{{ concurent }}, {animateRotate : false,});
+            //var myPieChart{{ key }}{{ concurent }} = new Chart(ctx{{ key }}{{ concurent }} , { type: 'bar', data: data{{ key }}{{ concurent }} });
+            {% endfor %}
+            {% endfor %}
+
+            {% endif %}
+
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip({
+                    placement : 'top'
+                });
+            });
+        });
+
+    </script>
+
+{% endblock %}

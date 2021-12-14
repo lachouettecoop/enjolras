@@ -1,0 +1,58 @@
+<div class="container-fluid greyish ">
+    <div class="container">
+        <div class="row">
+            <div class="col top-buffer-50">
+                <h2 class="mb-4">Commentaires ({{ commentaires | length }})</h2>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 bottom-buffer">
+
+                {% for commentaire in commentaires %}
+                    {% if commentaire.visible %}
+                        <div class="mb-4">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    {% if gravatar_exists(commentaire.user.email) %}
+                                        <img src="{{ gravatar(commentaire.user.email) }}" width="80" height="80" alt="">
+                                    {% else %}
+                                        <img src="{{ asset('images/default_avatar.png' ) }}" width="80" height="80" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-10 card pt-2">
+                                    <h5>{{ commentaire.user }}</h5>
+                                    <div class="mb-4 dateComment"> {{ commentaire.created | date('d/m/Y - H:i') }}</div>
+
+                                    <p style="">{{ commentaire.commentaire | raw }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                {% if not subject.termine and subject.dateDebut > date('now') and subject.datePleniere < date('now') %}
+                    {% if app.user %}
+                        <h4 class="top-buffer-50" id="comm">Ajouter un commentaire</h4>
+                        <form action="{{ path('app_commentaire_ajout') }}" id="comform" method="post" class="form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" name="identty" value="{{ id }}" />
+                                    <textarea name="commentaire" id="com" class="form-control" rows="4" style="height: 110px;"></textarea>
+                                    <div class="right top-buffer">
+                                        <input id="subbtn" type="submit" class="btn btn-primary" value="Ajouter un commentaire" /> &nbsp;&nbsp;
+                                        <span id="loader" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    {% else %}
+                        Vous devez vous <a href="{{ path('app_login') }}">connecter</a> pour poster un message !
+                    {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>

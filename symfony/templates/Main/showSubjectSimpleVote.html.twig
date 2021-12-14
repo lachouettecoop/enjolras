@@ -1,0 +1,228 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+    <div class="container-fluid whitey">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_home')}}" accesskey="h" data-original-title="" title=""><span class="fa fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="{{path('app_home')}}" accesskey="h" data-original-title="" title="">Accueil</a></li>
+                <li class="breadcrumb-item" ><a href="{{path('glukose_enjolras_subjects')}}" accesskey="h" data-original-title="" title="">Décisions</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="row bottom-buffer">
+            <div class="col-md-12">
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-8 col-12">
+
+                <h2>{{subject.title}}</h2>
+                {% if subject.dateDebut > date('now') %}
+                    <i class="far fa-clock"></i> La vote commencera le {{subject.dateDebut | date("d-m-Y") }}
+                {% elseif subject.dateFin < date('now') %}
+                    <i class="far fa-clock"></i> Le vote s'est terminé le {{subject.dateFin | date("d-m-Y") }}
+                {% else %}
+                    {% set difference = date(subject.dateFin).diff(date("now")) %}
+                    <i class="fa fa-calendar-times-o"></i>
+                    Il reste {{ difference.days }} jours avant la fin du vote ({{subject.dateFin | date("d-m-Y") }})
+                {% endif %}
+                <p>{{subject.description | raw}}</p>
+
+                <hr>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card ">
+                    {% if subject.termine %}
+                        <div class="center">
+                            <h2 class="top-buffer mb-4">Résultats</h2>
+                            {% if subject.voteSimple %}
+                                <canvas id="chartResults" class="mb-4"></canvas>
+                                <table class="table">
+                                    {% for result in tabResults %}
+                                        <tr>
+                                            <td>{{result[0]}} </td>
+                                            <td>{{result[1][1]}} </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            {% else %}
+
+                                <h3 class="well">{{ subject.gagnant }}</h3>
+                            {% endif %}
+                            <a href="{{path('glukose_enjolras_publication_resultats', {'id':subject.id})}}" class="btn btn-default mb-2" >Voir la liste complète des votes</a>
+                        </div>
+                    {% else %}
+                        <div class="center pt-4 pb-4">
+                            {% if app.user and subject.dateFin > date('now') %}
+                                {% if vote == null %}
+                                    <h2 class="top-buffer mb-4">Vote</h2>
+                                    <strong>Vous n'avez pas encore voté pour cette décision</strong>
+                                    <a href="{{path('glukose_enjolras_voteCondorcet', {'id':subject.id})}}" class="btn btn-primary mt-4" >Voter</a>
+                                {% else %}
+                                    <strong class="top-buffer mb-4">Votre vote :</strong><br />
+                                    {{ vote }}
+                                    {% if not vote.subject.voteSimple %}
+                                        <br />
+                                        <br />
+                                        {% for key, solution in vote.subject.solutions %}
+                                            <span class="label label-default">Id {{ solution.id }} :</span> {{ solution }} <br />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    <a href="{{path('glukose_enjolras_voteCondorcet', {'id':subject.id})}}" class="btn btn-default mt-4" >Changer mon vote</a>
+                                {% endif %}
+                            {% else %}
+                                <strong class="top-buffer mb-4">Les votes sont cloturés, en attente des résultats</strong><br />
+                            {% endif %}
+
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        {% if arguments['comprendre'] | length > 0 %}
+            <div class="row">
+                <div class="col mb-4">
+                    <h2>Pour comprendre le débat</h2>
+                    {% for argument in arguments['comprendre'] %}
+                        <a class="link-unstyled" data-toggle="collapse" href="#collapse{{ argument.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ argument.id }}">
+                            <h4 class="fami argumentOffset">{{ argument.titre }}</h4>
+                        </a>
+                        <div class="collapse mb-4" id="collapse{{ argument.id }}">
+                            <div class="card card-body">
+                                {{ argument.description | raw }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if arguments['pour'] | length > 0 %}
+            <div class="row">
+                <div class="col mb-4">
+                    <h2>Arguments pour</h2>
+                    {% for argument in arguments['pour'] %}
+                        <a class="link-unstyled" data-toggle="collapse" href="#collapse{{ argument.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ argument.id }}">
+                            <h4 class="famipour argumentOffset">{{ argument.titre }}</h4>
+                        </a>
+                        <div class="collapse mb-4" id="collapse{{ argument.id }}">
+                            <div class="card card-body">
+                                {{ argument.description | raw }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if arguments['contre'] | length > 0 %}
+            <div class="row">
+                <div class="col mb-4">
+                    <h2>Arguments contre</h2>
+                    {% for argument in arguments['contre'] %}
+                        <a class="link-unstyled" data-toggle="collapse" href="#collapse{{ argument.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ argument.id }}">
+                            <h4 class="famicontre argumentOffset">{{ argument.titre }}</h4>
+                        </a>
+                        <div class="collapse mb-4" id="collapse{{ argument.id }}">
+                            <div class="card card-body">
+                                {{ argument.description | raw }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+    {% include 'Main/commentBlock.html.twig' with {'id': subject.id, 'commentaires': subject.commentaires, 'subject': subject } %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/chart.min.js') }}"></script>
+{% endblock %}
+
+{% block jquery %}
+
+
+    {% if subject.termine %}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+
+            {% if subject.voteSimple %}
+            var ctx = $("#chartResults").get(0).getContext("2d");
+            //var myNewChart = new Chart(ctx);
+            Chart.defaults.global.responsive = true;
+
+            {% autoescape false  %}
+            Chart.defaults.global.tooltipTemplate = '<%if (label){ %><%=label%> = <%}%><%= value %>';
+            {% endautoescape %}
+            var tabColor = ['#aee058', '#e05867', '#58aee0'];
+            var tabColorHigh = ['#a9e640', '#de3245', '#43a6e0'];
+
+            var data = [
+                {% for result in tabResults %}
+                {
+                    value: {{result[1][1]}},
+                    highlight: tabColorHigh[{{loop.index0}}],
+                    color: tabColor[{{loop.index0}}],
+                    label: "{{result[0]}}"
+                },
+                {% endfor%}
+
+            ];
+            var myPieChart = new Chart(ctx).Doughnut(data, {//Boolean - Whether we animate the rotation of the Doughnut
+                animateRotate : true,
+
+
+            });
+            {% endif %}
+
+            $('#comform').submit( function(event) {
+
+                event.preventDefault();
+                var $this = $(this);
+                $('#loader').show();
+                $('#subbtn').prop('disabled', true);
+
+                $.ajax({
+                    url: $this.attr('action'),
+                    type: $this.attr('method'),
+                    data: $this.serialize(),
+                    statusCode: {
+                        //traitement en cas de succès
+                        200: function(response) {
+                            var successMessage = response.successMessage;
+                            $('#loader').hide();
+                            $('#com').prop('disabled', true);
+                            $('#subbtn').parent().html('<label class="btn btn-success">Votre commentaire a été enregistré !.</label>');
+                            $('#subbtn').hide();
+                        },
+                        412: function(response) {
+                            var errorMessage = response.errorMessage;
+                        }
+                    }
+                });
+
+            });
+
+        });
+        {% endif %}
+    </script>
+{% endblock %}

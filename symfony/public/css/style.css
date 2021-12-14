@@ -1,0 +1,343 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+html,
+body {
+    height: 100%;
+    min-height: 100%
+        /* The html and body elements cannot have any padding or margin. */
+}
+body {
+    background-color: #f6f7fc;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    font-size: 14px;
+    color: #373737;
+}
+
+@font-face{
+    font-family: sortsmillgoudy;
+    src:url(../fonts/SortsMillGoudy-Italic.ttf);   
+}
+@font-face{
+    font-family: opensans;
+    src:url(../fonts/OpenSans-Regular.ttf);   
+}
+@font-face{
+    font-family: opensansbold;
+    src:url(../fonts/OpenSans-Bold.ttf);   
+}
+@font-face{
+    font-family: opensanssemibold;
+    src:url(../fonts/OpenSans-Semibold.ttf);   
+}
+@font-face{
+    font-family: krinkes;
+    src:url(../fonts/KrinkesDecorPERSONAL.ttf);   
+}
+@font-face{
+    font-family: glyphicon;
+    src:url(../fonts/glyphicons-halflings-regular.ttf);   
+}
+.center{ text-align: center; }
+.right{ text-align: right; }
+.justify{ text-align: justify; }
+
+.bgContainer {
+    background-color: #f6f7fc;
+}
+
+.whitey {
+    background-color: #fff;
+}
+.greyish {
+    background-image: url('../images/white-waves.png') ;
+    background-repeat: repeat;
+    /*background-color: #f8f9fa;*/
+}
+.breadcrumb{
+    background-color: #fff;
+}
+.breadcrumb > :last-child > * {
+    color: #666;
+    font-weight: 700;
+}
+.breadcrumb > * > * {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: #999;
+}
+.breadcrumb > a:hover{
+    color: #3e3e3e;
+}
+
+.card{
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    border: 0;
+}
+.cardMiniS:focus, .cardMiniS:hover {
+    box-shadow: 0 0 4px 0 rgba(46,62,72,.12),0 4px 12px 0 rgba(46,62,72,.12);
+    transform: translateY(-1px);
+}
+.cardMiniS {
+    transition: box-shadow .25s cubic-bezier(.4,0,.2,1),transform .25s cubic-bezier(.4,0,.2,1);
+}
+.dateComment {
+    color: #979899;
+    font-size: 13px;
+    font-weight: 700;
+}
+.top-buffer { margin-top:20px; }
+.left-buffer { margin-left: 30px; }
+.small-buffer { margin-top:10px; }
+.bottom-buffer { margin-bottom:50px; }
+.top-buffer-50 { margin-top:60px; }
+.left-margin { margin-left: -15px; }
+/*.valign {
+    font-size: 0;
+}
+.valign > [class*="col"] {
+    display: inline-block;
+    float: none;
+    font-size: 14px;
+    font-size: 1.5rem;
+    vertical-align: middle;
+}*/
+
+.titleBig { font-family: arial, serif; line-height: 1.5; margin: 0 0 0px; font-size: 30px; margin-bottom: 20px; }
+h1, h2, h3 { font-weight: 300;}
+/*h1 {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 22px; }*/
+h2.cardTitle {  font-family: arial, serif; line-height: 1.25; margin: 0 0 0px; font-size: 18px; color: #c0392b; margin-bottom: 15px;}
+/*h3 {  font-family: opensans, serif; line-height: 1.25; margin: 0 0 0px; font-size: 16px; color: #212121; margin-bottom: 10px; }*/
+h1.slogan {  font-family: sortsmillgoudy, serif; line-height: 1.25; margin: 0 0 0px; font-size: 30px; color: #34495e; }
+
+.mainh2{
+    font-size: 26px;
+    margin-top: 15px;
+}
+.mainh3{
+    font-family: sortsmillgoudy, serif;
+    font-size: 20px;
+    color: #34495e;    
+    font-weight: 700;
+}
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+    color: #fff;
+    font-size: 14px;
+    height: 200px;
+    box-shadow: inset 0px 1px 5px 1px rgba(15, 15, 15, 0.28);
+    -moz-box-shadow: inset 0px 1px 5px 1px rgba(15, 15, 15, 0.28);
+    -webkit-box-shadow: inset 0px 1px 5px 1px rgba(15, 15, 15, 0.28);
+
+}
+#footer {
+    bottom: 0;
+    width: 100%;
+    background-color: #353535;
+    height: auto;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.menu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li{
+    display: inline;
+    margin:0px 10px;
+}
+a.whiteLink{
+    color: white;
+    cursor: pointer;
+}
+a.whiteLink:hover{
+    color: white;
+    text-decoration: underline;
+}
+a.whiteLink:visited {
+    color: white;
+}
+
+.headMainTopic {
+    margin: 10px 0;
+    border: 0;
+    padding: 10px 20px;
+    font-family: opensansbold;
+    color: #fff;
+    background: #34495e;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.noMargin{
+    margin: 0px 0px;
+}
+.pending-color{ background-color: #16a085;}
+
+/* ***** Sortable List */
+ul.listSort {
+    list-style: decimal;
+}
+ul.listSortChoix {
+    list-style: none;
+}
+.block__list {
+    min-height: 60px;
+    padding: 20px 40px;
+    margin-top: -8px;
+    margin-left: 5px;
+    background-color: #fff;
+}
+.block__list-title {
+    margin: -20px 0 0;
+    padding: 10px;
+    text-align: center;
+    background: #5F9EDF;
+}
+.block__list li { cursor: move; }
+
+.block__list_words li {
+    background-color: #fff;
+    padding: 10px 20px;
+}
+.block__list_words .sortable-ghost {
+    opacity: 0.4;
+    background-color: #F4E2C9;
+}
+
+.block__list_words li:first-letter {
+    text-transform: uppercase;
+}
+.block__list_tags {
+    padding-left: 30px;
+}
+
+.block__list_tags:after {
+    clear: both;
+    content: '';
+    display: block;
+}
+.block__list_tags li {
+    color: #fff;
+    float: left;
+    margin: 8px 20px 10px 0;
+    padding: 5px 10px;
+    min-width: 10px;
+    background-color: #5F9EDF;
+    text-align: center;
+}
+.block__list_tags li:first-child:first-letter {
+    text-transform: uppercase;
+}
+.title {
+    color: #fff;
+    padding: 3px 10px;
+    display: inline-block;
+    position: relative;
+    background-color: #FF7373;
+    z-index: 1000;
+}
+.title_xl {
+    padding: 3px 15px;
+    font-size: 40px;
+}
+
+
+
+.tile {
+    width: 22%;
+    min-width: 245px;
+    color: #FF7270;
+    padding: 10px 30px;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 30px;
+    background-color: #fff;
+    display: inline-block;
+    vertical-align: top;
+}
+.tile__name {
+    cursor: move;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #FF7373;
+}
+
+.tile__list {
+    margin-top: 10px;
+}
+.tile__list:last-child {
+    margin-right: 0;
+    min-height: 80px;
+}
+
+.tile__list img {
+    cursor: move;
+    margin: 10px;
+    border-radius: 100%;
+}
+
+.fami {
+    background: url(../images/right_arrow.svg),url(../images/argument.svg);
+    background-position: 0 center,18px center;
+    background-repeat: no-repeat,no-repeat;
+    background-size: 15px,28px;
+}
+
+.famipour {
+    background: url(../images/right_arrow.svg),url(../images/Famipour.svg);
+    background-position: 0 center,18px center;
+    background-repeat: no-repeat,no-repeat;
+    background-size: 15px,28px;
+}
+
+.famicontre {
+    background: url(../images/right_arrow.svg),url(../images/Famicontre.svg);
+    background-position: 0 center,18px center;
+    background-repeat: no-repeat,no-repeat;
+    background-size: 15px,28px;
+}
+.argumentOffset{
+    padding: 0 0 0 57px !important;
+}
+.link-unstyled, .link-unstyled:visited, .link-unstyled:hover, .link-unstyled:active, .link-unstyled:focus, .link-unstyled:active:hover {
+    font-style: inherit;
+    color: inherit;
+    background-color: transparent;
+    font-size: inherit;
+    text-decoration: none;
+    font-variant: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    font-family: inherit;
+    border-radius: inherit;
+    border: inherit;
+    outline: inherit;
+    box-shadow: inherit;
+    padding: inherit;
+    vertical-align: inherit;
+}

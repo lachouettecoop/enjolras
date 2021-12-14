@@ -1,0 +1,33 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 card">
+                <div class="bottom-buffer">
+                    <h1 class="titleBig ">Enjolras : vote électronique </h1>
+                    <h2 class="mainh2">Introduction</h2>
+                    <p>
+                        Bienvenue sur la plateforme de décision <a href="https://github.com/glukose/Enjolras">Enjolras</a> qui propose un vote électronique démocratique et de confiance. Pour en savoir plus sur les méthodes de vote,<a href="{{ path('app_details') }}"> cliquez ici</a>.
+                    </p>
+                </div>
+                <div class="row top-buffer bottom-buffer">
+                    <div class="col-md-12">
+                        {% if app.user %}
+                            <a href="{{ path('glukose_enjolras_subjects') }}" class="btn btn-primary"> Voir les votes</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="btn btn-primary"> Se connecter</a>
+                            avec les identifiants de La Chouette Coop (ceux de l'espace membres)
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

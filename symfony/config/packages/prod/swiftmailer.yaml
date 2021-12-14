@@ -1,0 +1,8 @@
+# See https://symfony.com/doc/current/email/dev_environment.html
+#swiftmailer:
+#   transport: smtp
+#   host:      smtp.mailtrap.io
+#   username:  93950521ab63a8
+#   password:  4293947a74f16d
+#   port:      2525
+#   spool:     { type: memory }

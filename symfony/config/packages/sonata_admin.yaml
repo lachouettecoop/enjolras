@@ -1,0 +1,11 @@
+sonata_block:
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+
+sonata_admin:
+    title:                    'Enjolras'
+    templates:
+        #layout:               'standard_layout.html.twig'
+        search:               'SonataAdminBundle:Core:search.html.twig'
+        search_result_block:  'SonataAdminBundle:Block:block_search_result.html.twig'

@@ -1,0 +1,67 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+    <div class="container-fluid whitey" >
+
+        <div class="">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{path('app_home')}}" accesskey="h" data-original-title="" title=""><span class="fa fa-home"></span></a></li>
+                    <li class="breadcrumb-item"><a href="{{path('app_home')}}" accesskey="h" data-original-title="" title="">Accueil</a></li>
+                    <li class="breadcrumb-item" ><a href="{{path('glukose_enjolras_subjects')}}" accesskey="h" data-original-title="" title="">Décisions</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        {%  if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')  %}
+        <div class="row bottom-buffer">
+            <div class="col">
+                <h1>Décisions en préparation (admin)</h1>
+
+                {% if invisibles | length > 0  %}
+                    {% for subject in invisibles %}
+                        {% include 'Main/cardSubject.html.twig' with {'subject': subject } %}
+                    {% endfor %}
+                {% else %}
+                    <div class="center top-buffer">
+                        <p>Aucune décision qui n'est pas terminée et en invisible</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row bottom-buffer">
+            <div class="col">
+                <h1>Décisions en cours</h1>
+
+                {% if subjects | length > 0  %}
+                    {% for subject in subjects %}
+                        {% include 'Main/cardSubject.html.twig' with {'subject': subject } %}
+                    {% endfor %}
+                {% else %}
+                    <div class="center top-buffer">
+                        <h2>Aucun vote en cours</h2>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col">
+                <h1>Décisions terminées</h1>
+                {% for subject in (subjectsTermine | reverse) %}
+                    {% include 'Main/cardSubject.html.twig' with {'subject': subject } %}
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

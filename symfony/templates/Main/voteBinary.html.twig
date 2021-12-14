@@ -1,0 +1,84 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+    <div class="container-fluid whitey">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_home')}}" accesskey="h" data-original-title="" title=""><span class="fa fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="{{path('app_home')}}" accesskey="h" data-original-title="" title="">Accueil</a></li>
+                <li class="breadcrumb-item" ><a href="{{path('glukose_enjolras_subjects')}}" accesskey="h" data-original-title="" title="">Décisions</a></li>
+                <li class="breadcrumb-item" ><a href="{{path('glukose_enjolras_oneSubject', {'id': subject.id})}}" accesskey="h" data-original-title="" title="">{{ subject.title  }}</a></li>
+                <li class="breadcrumb-item"><a href="#" accesskey="h" data-original-title="" title="">Vote</a></li>
+            </ol>
+        </nav>
+    </div>
+    <div class="container">
+
+        <div class="row bottom-buffer">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for flashMessage in app.session.flashbag.get('notice') %}
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-12">
+                    <div class="card p-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="{{asset('images/logoVote.png')}}" width="150" height="" alt="Image d'un bulletin glissé dans une urne" />
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Vote : {{subject.title}}</h1>
+                                <br />
+                                <p>
+                                    {% for solution in subject.solutions %}
+                                        <a href="#" class="votebtn btn btn-light" id="{{solution}}">{{solution}}</a>
+                                        <br />
+                                        <br />
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="center">
+                            <form id="voteForm" action="{{path('glukose_enjolras_voteCondorcet', {'id':subject.id})}}" method="POST" >
+                                <input id="myvote" type="hidden" name="myvote" />
+                                <input type="submit" class="btn btn-success" value="A voté !" />
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <br />
+        <br />
+
+
+    </div>
+
+{% endblock %}
+
+{% block jquery %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".votebtn").on('click' ,function() {
+                $(".votebtn").each( function(){
+                    $(this).attr('class', 'votebtn btn btn-default');
+                });
+
+                $("#myvote").attr('value', $(this).attr('id') + '>');
+                $(this).attr('class', 'votebtn btn btn-primary');
+            });
+
+        });
+
+    </script>
+{% endblock %}

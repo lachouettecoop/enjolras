@@ -1,0 +1,37 @@
+<div class="col-12 card cardMiniS mb-2">
+
+    <div class="card-body">
+        <div class="row valign">
+            <div class="col-md-1 col-12 center">
+                {% if subject.dateFin > date('now') %}
+                    <img src="{{asset('images/readIcon.png')}}" width="" height="45" >
+                {% else %}
+                    <img src="{{asset('images/iconChecked.jpg')}}" width="" height="45" >
+                {% endif %}
+
+            </div>
+            <div class="col-md-8">
+                <a href="{{path('glukose_enjolras_oneSubject', {'id': subject.id})}}"><h2 class="cardTitle">{{subject.title}}</h2></a>
+                <div>{{subject.subtitle}}</div>
+            </div>
+            <div class="col-md-2 center">
+                <div class="pt-3">
+                    {% if subject.dateFin > date('now') %}
+                        {% if is_granted('ROLE_ADMIN') %} {{subject.votes | length}} votes <br />{% endif %}
+
+                        {% set difference = date(subject.dateFin).diff(date("now")) %}
+
+                        Reste {{ difference.days }} jours
+                    {% else  %}
+                        {{ subject.dateFin | date('d/m/Y') }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="pt-2">
+                <a href="{{path('glukose_enjolras_oneSubject', {'id': subject.id})}}" class="btn btn-default">Voir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
