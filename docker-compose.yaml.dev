@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db_enjolas:
+    image: mariadb:10.3
+    ports:
+      - '3306:3306'
+    environment:
+      - MARIADB_ROOT_PASSWORD=enjolas
+      - MARIADB_USER=enjolas
+      - MARIADB_PASSWORD=enjolas
+      - MARIADB_DATABASE=enjolas
+    volumes:
+      - ./data/:/var/lib/mysql
+  enjolas:
+    build: .
+    ports:
+      - '8000:8000'
+    environment:
+      - SYMFONY_DATABASE_HOST=db_enjolas
+      - SYMFONY_DATABASE_PORT_NUMBER=3306
+      - SYMFONY_DATABASE_NAME=enjolas
+      - SYMFONY_DATABASE_USER=enjolas
+      - SYMFONY_DATABASE_PASSWORD=enjolas
+    depends_on:
+      - db_enjolas

@@ -1,0 +1,49 @@
+version: '2.1'
+
+services:
+  db_enjolas:
+    image: mariadb:10.3
+    ports:
+      - '3306:3306'
+    environment:
+      - MARIADB_ROOT_PASSWORD=...
+      - MARIADB_USER=enjolas
+      - MARIADB_PASSWORD=...
+      - MARIADB_DATABASE=enjolas
+    volumes:
+      - ./data/:/var/lib/mysql
+    networks:
+      metabase_shared:
+      default:
+
+  enjolas:
+    build: .
+    ports:
+      - '8000:8000'
+    environment:
+      - SYMFONY_DATABASE_HOST=db_enjolas
+      - SYMFONY_DATABASE_PORT_NUMBER=3306
+      - SYMFONY_DATABASE_NAME=enjolas
+      - SYMFONY_DATABASE_USER=enjolas
+      - SYMFONY_DATABASE_PASSWORD=...
+    links:
+      - db_enjolas:db_enjolas
+    networks:
+      default:
+      inverseproxy_shared:
+    labels:
+      traefik.docker.network: "inverseproxy_shared"
+      traefik.enable: "true"
+      traefik.frontend.passHostHeader: "true"
+      traefik.port: "8000"
+      traefik.www.frontend.rule: "Host:vote.lachouettecoop.fr"
+
+networks:
+    default:
+      internal: true
+      driver_opts:
+        encrypted: 1
+    metabase_shared:
+      external: true
+    inverseproxy_shared:
+      external: true
