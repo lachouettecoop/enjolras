@@ -210,7 +210,7 @@ class MainController  extends AbstractController
                     $this->addFlash('notice','Merci de votre vote. Le résultat sera affiché sur cette page lors de la clôture du vote.');
 
                     $message = (new \Swift_Message('✅ Vote enregistré - La Chouette Coop'))
-                        ->setFrom('cdoj@lachouettecoop.fr')
+                        ->setFrom('codj@lachouettecoop.fr')
                         ->setTo($user->getEmail())
                         ->setContentType("text/html")
                         ->setBody($this->renderView('Email/vote_confirmation_email.html.twig', ['vote' => $enjolrasVote]))
